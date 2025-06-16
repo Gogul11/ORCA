@@ -3,13 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "src/ide/main",
+  "main": "dist-ide/main.js",
   "scripts": {
     "dev:ui": "vite",
     "dev:ide": "electron .",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "transpile:ide": "tsc --project src/ide/tsconfig.json",
+    "dist:mac": "npm run transpile:ide && npm run build && electron-builder --mac --arm64",
+    "dist:win": "npm run transpile:ide && npm run build && electron-builder --win --x64",
+    "dist:linux": "npm run transpile:ide && npm run build && electron-builder --linux --x64"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
@@ -23,6 +27,7 @@
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
     "electron": "^36.4.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",

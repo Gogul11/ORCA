@@ -1,0 +1,15 @@
+{
+  "appId": "labX",
+  "files": ["dist-ide", "dist-ui"],
+  "icon": "./desktopIcon.png",
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": ["portable", "msi"]
+  }
+}
