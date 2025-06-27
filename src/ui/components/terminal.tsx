@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Terminal } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 import 'xterm/css/xterm.css'
+import { handleResize, handleTerminalRunTime, TerminalConfig } from "../utils/terminalUtils";
 
 const LabXTerminal: React.FC = () => {
 
@@ -10,60 +11,39 @@ const LabXTerminal: React.FC = () => {
   const fitAddon = useRef<FitAddon | null>(null)
 
   const input = useRef<string>("")
+  const cursor = useRef<number>(0)
 
   useEffect(() => {
     if(terminalParent.current){
-
-      terminal.current = new Terminal({
-        cursorBlink : true,
-        fontFamily: 'monospace',
-        theme: {
-          background: '#1e1e1e',
-          foreground: '#ffffff'
-        },
-        cursorStyle : 'block',
-        cursorInactiveStyle:'block'
-      }) 
-      
+      terminal.current = new Terminal(TerminalConfig) 
       fitAddon.current = new FitAddon();
-
       terminal.current.loadAddon(fitAddon.current)
       terminal.current.open(terminalParent.current)
       fitAddon.current.fit();
-
     }
 
-    const handleResize = () => {
-      fitAddon.current?.fit()
-    }
-
-    terminal.current?.onKey(({ key }) => {
-      if (key === '\r') {
-        window.electronApi.sendInput(input.current);
-        input.current = "";
-      } else {
-        input.current += key;
-        terminal.current?.write(key);
-      }
+    
+    terminal.current?.onKey(({ key, domEvent }) => {
+        handleTerminalRunTime(key, domEvent, terminal, input, cursor)
     });
 
     
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', () => handleResize(fitAddon))
 
     return () => {
       terminal.current?.dispose();
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", () =>  handleResize(fitAddon));
     };
 
   }, [])
 
-  useEffect(() => {
-          window.electronApi.receiveOutput((data : string) => {
-            terminal.current?.write('\x1b[2K');
-            terminal.current?.write('\r');
-            terminal.current?.write(data)
-          })
-  }, [])
+  // useEffect(() => {
+  //         window.electronApi.receiveOutput((data : string) => {
+  //           terminal.current?.write('\x1b[2K');
+  //           terminal.current?.write('\r');
+  //           terminal.current?.write(data)
+  //         })
+  // }, [])
 
   return(
     <div className="flex h-full w-full ">
