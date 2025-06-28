@@ -11,7 +11,7 @@ interface Props {
 const Sidebar: React.FC<Props> = ({ clients, onSelectClient, selectedClientId }) => {
   return (
     <div className="sidebar">
-      <div className="sidebar-header">Connected</div>
+      <div className="sidebar-header">Connected Students</div>
       <div className="client-list">
         {clients.map((client, index) => (
           <div
@@ -22,7 +22,7 @@ const Sidebar: React.FC<Props> = ({ clients, onSelectClient, selectedClientId })
             <div className="client-status">
               <span className={`status-dot ${client.isOnline ? 'online' : 'offline'}`} />
             </div>
-            <div className="client-index">{index + 1}</div>
+            <div className="client-index">{index + 1}.</div>
             <div className="client-name">{client.name}</div>
             <div className="client-reg">{client.regNo}</div>
           </div>

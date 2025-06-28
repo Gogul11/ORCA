@@ -1,20 +1,26 @@
 .sidebar {
   flex: 1; 
-  background-color: #333;
-  color: white;
+  background: linear-gradient(135deg, #383838 50%, #0f0f0f 100%);
+  color: rgb(255, 255, 255);
   border-right: 2px solid #000;
   padding: 10px;
   box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .sidebar-header {
-  font-size: 18px;
+  font-size: 22px;
   margin-bottom: 10px;
-  background: #00ff99;
+  background: #04ff9a;
   padding: 5px;
-  color: black;
+  color: rgb(0, 0, 0);
+  font-family: monospace;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+
 }
 
 .client-list {
@@ -28,17 +34,19 @@
   align-items: center;
   border-bottom: 1px solid #444;
   cursor: pointer;
-  gap: 8px;
+  gap: 10px;
+  font-size: 20px;
 }
 
 .client-item.active {
-  background-color: #444;
+  background-color: rgb(30, 30, 30);
+  border-radius: 5px;
   font-weight: bold;
 }
 
-.client-status .status-dot {
-  width: 10px;
-  height: 10px;
+.client-status .status-dot {  
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -52,7 +60,8 @@
 }
 
 .client-index {
-  width: 20px;
+  width: 25px;
+  margin-left: 10px;
 }
 
 .client-name,

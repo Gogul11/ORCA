@@ -3,7 +3,7 @@ export interface Client {
   name: string;
   regNo: string;
   folderStructure: Folder[];
-  isOnline: boolean; // ✅ New field
+  isOnline: boolean; 
 }
 
 export interface Folder {

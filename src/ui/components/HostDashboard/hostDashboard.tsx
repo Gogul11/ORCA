@@ -10,14 +10,14 @@ const dummyClients: Client[] = [
     name: 'Gogul',
     regNo: '2023115020',
     isOnline: true,
-    folderStructure: [{ name: 'my-work', files: ['Lab2.c', 'Lab3.c', 'Report.txt'] }]
+    folderStructure: [{ name: 'myFolder', files: ['Lab2.c', 'Lab3.c', 'Report.txt'] }]
   },
   {
     id: '2',
     name: 'Mohan',
     regNo: '2023115026',
     isOnline: false,
-    folderStructure: [{ name: 'my-work', files: ['Task1.py'] }]
+    folderStructure: [{ name: 'Lab_Assess', files: ['Task1.py'] }]
   },
   {
     id: '3',
@@ -33,7 +33,7 @@ const HostDashboard: React.FC = () => {
   const [selectedClient, setSelectedClient] = useState<Client | null>(clients[0]);
 
   const [sidebarVisible, setSidebarVisible] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState(250);
+  const [sidebarWidth, setSidebarWidth] = useState(350);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -72,7 +72,7 @@ const HostDashboard: React.FC = () => {
           <span>labX</span>
         </div>
         <div className="room-info">
-          Room name: <span>Lab Assessment I</span> &nbsp;|&nbsp;
+          Room name: <span>Lab Assessment 1</span> &nbsp;|&nbsp;
           Room ID: <span>ABC123</span>
         </div>
         <div className="controls">
@@ -95,7 +95,7 @@ const HostDashboard: React.FC = () => {
         )}
         <ClientFolderView client={selectedClient} />
       </div>
-    </div>
+    </div>  
   );
 };
 

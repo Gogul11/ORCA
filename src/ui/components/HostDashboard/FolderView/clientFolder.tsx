@@ -23,7 +23,7 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
             <div className="folder-name">📁 {folder.name}</div>
             <ul>
               {folder.files.map((file) => (
-                <li key={file}>├── {file}</li>
+                <li key={file} className='file-names'>├── {file}</li>
               ))}
             </ul>
           </div>
