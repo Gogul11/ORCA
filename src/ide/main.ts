@@ -11,7 +11,7 @@ app.on('ready', () => {
     let currInput :string;
     ipcMain.on('terminal-input', (_event, input) => {
         currInput = input;
-        ptyProcess.write(input+"\r");
+        ptyProcess.write(input);
     }) 
 
     ptyProcess.onData((data) => {

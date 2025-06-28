@@ -28,10 +28,48 @@ export const handleTerminalRunTime = (
   const term = terminalRef.current;
   if (!term || cursor.current === null || cursor.current < 0) return;
 
+  //ctrl + c
+  if(domEvent.ctrlKey && domEvent.key === 'c'){
+    term.write('\r\n')
+    window.electronApi.sendInput('SIGINT\r')
+    return;
+  }
+
+  //ctrl + l
+  if(domEvent.ctrlKey && domEvent.key === 'l'){
+    window.electronApi.sendInput('\x0C\r')
+    return;
+  }
+
+  // if (domEvent.key === 'ArrowUp') {
+  //   window.electronApi.sendInput('\x1b[A');  // ANSI code for ↑
+  //   return;
+  // }
+
+  //ctrl + a
+  if (domEvent.ctrlKey && domEvent.key.toLowerCase() === 'a') {
+    const moveLeft = cursor.current;
+    if (moveLeft > 0) {
+      term.write(`\x1b[${moveLeft}D`); // Move cursor to start
+      cursor.current = 0;
+    }
+    return;
+  }
+
+  //ctrl + e
+  if (domEvent.ctrlKey && domEvent.key.toLowerCase() === 'e') {
+    const moveRight = input.current.length - cursor.current;
+    if (moveRight > 0) {
+      term.write(`\x1b[${moveRight}C`); // Move cursor to end
+      cursor.current = input.current.length;
+    }
+    return;
+  }
+
   // ENTER
   if (key === '\n' || domEvent.key === 'Enter') {
     term.write('\r\n');
-    window.electronApi.sendInput(input.current || '');
+    window.electronApi.sendInput(input.current + '\r' || '');
     input.current = '';
     cursor.current = 0;
     return;
