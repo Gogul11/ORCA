@@ -21,6 +21,8 @@ const LabXTerminal: React.FC = () => {
       terminal.current.loadAddon(fitAddon.current)
       terminal.current.open(terminalParent.current)
       fitAddon.current.fit();
+
+      window.electronApi.startTerminal()
     }
 
     
