@@ -4,6 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { GoTerminal } from "react-icons/go";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
+import Room from '../components/RoomComponents/Room';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
@@ -22,7 +23,11 @@ const SideBar = () => {
       case 'chat':
         return <div className="text-white p-4">chat component</div>;
       case 'connect':
-        return <div className="text-white p-4">Host or Join component</div>;
+        return <Room onJoin={function (): void {
+          throw new Error('Function not implemented.');
+        } } onHost={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       default:
         return null;
     }
