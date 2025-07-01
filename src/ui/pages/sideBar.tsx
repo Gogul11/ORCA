@@ -4,6 +4,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { GoTerminal } from "react-icons/go";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
+import EditorsOpened from '../components/opened/openedEditors';
+import OpenedTerminals from '../components/opened/openedTerm';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
@@ -16,9 +18,9 @@ const SideBar = () => {
       case 'files':
         return <div className="text-white p-4">File Explorer Content component</div>;
       case 'editor':
-        return <div className="text-white p-4">Editors opened component</div>;
+        return <EditorsOpened/>;
       case 'terminal':
-        return <div className="text-white p-4">Terminals Opened component</div>;
+        return <OpenedTerminals />;
       case 'chat':
         return <div className="text-white p-4">chat component</div>;
       case 'connect':
