@@ -5,6 +5,7 @@ import { GoTerminal } from "react-icons/go";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
+import Chat from '../components/Chat';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
@@ -21,7 +22,9 @@ const SideBar = () => {
       case 'terminal':
         return <div className="text-white p-4">Terminals Opened component</div>;
       case 'chat':
-        return <div className="text-white p-4">chat component</div>;
+        return <Chat username={''} messages={[]} onSend={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>;
       case 'connect':
         return <Room onJoin={function (): void {
           throw new Error('Function not implemented.');
