@@ -15,9 +15,11 @@ export interface Message {
   id: string;
   sender: string;
   content: string;
+  timestamp: string;
   isSelf: boolean;
 }
 
  export interface ChatSidebarProps {
   username: string;
 }
+

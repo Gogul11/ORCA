@@ -6,14 +6,16 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      sender: "Alice",
-      content: "Hello, everyone!",
+      sender: "Gogul",
+      content: "Hey da",
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       isSelf: false,
     },
     {
       id: "2",
       sender: username,
-      content: "Hi Alice 👋",
+      content: "Sollu da",
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       isSelf: true,
     },
   ]);
@@ -26,14 +28,18 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
 
   const handleSend = () => {
     if (input.trim()) {
+      const now = new Date();
       const newMsg: Message = {
         id: crypto.randomUUID(),
         sender: username,
         content: input,
+        timestamp: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         isSelf: true,
       };
       setMessages((prev) => [...prev, newMsg]);
       setInput("");
+
+      //emit to socket backend here
     }
   };
 
@@ -43,7 +49,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
 
   return (
     <div className="chat-sidebar">
-      <div className="chat-header">💬 Chat</div>
+      <div className="chat-header"> Chat</div>
 
       <div className="chat-messages">
         {messages.map((msg) => (
@@ -53,6 +59,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
           >
             {!msg.isSelf && <div className="sender">{msg.sender}</div>}
             <div className="content">{msg.content}</div>
+            <div className="timestamp">{msg.timestamp}</div>
           </div>
         ))}
         <div ref={messageEndRef} />
@@ -65,6 +72,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
+          onPaste={(e) => e.preventDefault()}
         />
         <button onClick={handleSend}>➤</button>
       </div>

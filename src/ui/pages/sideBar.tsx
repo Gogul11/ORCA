@@ -22,9 +22,7 @@ const SideBar = () => {
       case 'terminal':
         return <div className="text-white p-4">Terminals Opened component</div>;
       case 'chat':
-        return <Chat username={''} messages={[]} onSend={function (): void {
-          throw new Error('Function not implemented.');
-        } }/>;
+        return <Chat username={'Hii'} />;
       case 'connect':
         return <Room onJoin={function (): void {
           throw new Error('Function not implemented.');
