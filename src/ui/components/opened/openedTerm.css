@@ -1,0 +1,57 @@
+.opened-terminals-container {
+  max-width: 300px;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminals-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.terminal-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.terminal-entry:hover {
+  background-color: #3b3b3b;
+}
+
+.terminal-entry.active {
+  background-color: #2563eb;
+}
+
+.terminal-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-name {
+  font-weight: 500;
+}
+
+.terminal-cwd {
+  font-size: 0.7rem;
+  color: #aaa;
+}
+
+.terminal-close {
+  padding-left: 8px;
+  font-size: 1.1rem;
+  color: #aaa;
+}
+
+.terminal-close:hover {
+  color: #f87171;
+}
