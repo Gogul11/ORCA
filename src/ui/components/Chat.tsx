@@ -13,7 +13,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
     {
       id: "2",
       sender: username,
-      content: "Hi Alice",
+      content: "Hi Alice 👋",
       isSelf: true,
     },
   ]);
@@ -24,10 +24,26 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleSend = () => {
+    if (input.trim()) {
+      const newMsg: Message = {
+        id: crypto.randomUUID(),
+        sender: username,
+        content: input,
+        isSelf: true,
+      };
+      setMessages((prev) => [...prev, newMsg]);
+      setInput("");
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") handleSend();
+  };
 
   return (
     <div className="chat-sidebar">
-      <div className="chat-header">Chat</div>
+      <div className="chat-header">💬 Chat</div>
 
       <div className="chat-messages">
         {messages.map((msg) => (
@@ -48,9 +64,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ username }) => {
           placeholder="Type a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-
+          onKeyDown={handleKeyPress}
         />
-        <button>➤</button>
+        <button onClick={handleSend}>➤</button>
       </div>
     </div>
   );
