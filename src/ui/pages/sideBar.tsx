@@ -4,6 +4,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { GoTerminal } from "react-icons/go";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
+import Room from '../components/RoomComponents/Room';
+import Chat from '../components/Chat';
 import EditorsOpened from '../components/opened/openedEditors';
 import OpenedTerminals from '../components/opened/openedTerm';
 
@@ -22,9 +24,13 @@ const SideBar = () => {
       case 'terminal':
         return <OpenedTerminals />;
       case 'chat':
-        return <div className="text-white p-4">chat component</div>;
+        return <Chat username={'Hii'} />;
       case 'connect':
-        return <div className="text-white p-4">Host or Join component</div>;
+        return <Room onJoin={function (): void {
+          throw new Error('Function not implemented.');
+        } } onHost={function (): void {
+          throw new Error('Function not implemented.');
+        } } />
       default:
         return null;
     }

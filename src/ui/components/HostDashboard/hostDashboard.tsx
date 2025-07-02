@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './HostDashboard.css';
 import Sidebar from './Sidebar/sideBar';
 import ClientFolderView from './FolderView/clientFolder';
