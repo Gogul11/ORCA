@@ -6,6 +6,8 @@ import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
 import Chat from '../components/Chat';
+import EditorsOpened from '../components/opened/openedEditors';
+import OpenedTerminals from '../components/opened/openedTerm';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
@@ -18,9 +20,9 @@ const SideBar = () => {
       case 'files':
         return <div className="text-white p-4">File Explorer Content component</div>;
       case 'editor':
-        return <div className="text-white p-4">Editors opened component</div>;
+        return <EditorsOpened/>;
       case 'terminal':
-        return <div className="text-white p-4">Terminals Opened component</div>;
+        return <OpenedTerminals />;
       case 'chat':
         return <Chat username={'Hii'} />;
       case 'connect':
