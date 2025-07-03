@@ -52,17 +52,26 @@ const EditorPage = () => {
                     enableResizing = {enableResizingOptions(showTerminal)}
                     className='hide-scrollbar'
                 >
-                    <div className='h-full w-full border border-green-500'>
+                    <div className='h-[97%] w-full border border-green-500'>
                         <LabXEditor theme="vs-dark"/>
                     </div>
                 </Rnd>
 
                 {/* Terminal */}
                 {showTerminal && 
-                    <div className="h-full absolute top-0 -right-0 overflow-hidden" 
+                    <div className="h-[98%] absolute top-0 -right-0 overflow-hidden" 
                         style={{width : terminalWidth}}>
                         <LabXTerminal />
                     </div>}
+                
+                <div className='h-[3%] flex w-full absolute bottom-0 border border-red-600'>
+                    <div className='w-[50%] bg-fuchsia-600 h-full'>
+                            {/* //list of editors opened */}
+                    </div>
+                    <div className='w-[50%] bg-indigo-600 h-full'>
+                            {/* //list of terminals opened */}
+                    </div>
+                </div>
         </div>
     );
 };
