@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Content from './content';
 import { fetchFolder, openFolder } from '../../utils/flileExplorer';
 import { VscNewFile, VscNewFolder } from "react-icons/vsc";
@@ -29,7 +29,7 @@ const FolderExplorer = () => {
           setFetch(false)
 		  console.log(data)
         })
-        .catch((err : any) => {
+        .catch((_err : any) => {
             window.alert("Oops, Error while fetching!")
             setFetch(false)
         })
@@ -64,8 +64,8 @@ const FolderExplorer = () => {
 
 	useEffect(() => {
 		if(dir !== ''){
-		setFetch(true)
-		refresh()
+			setFetch(true)
+			refresh()
 		}
 	}, [dir]);
 
