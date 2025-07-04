@@ -1,53 +1,56 @@
-import { useState } from 'react';
-import './openedTerm.css';
+import React from 'react';
 
-interface TerminalSession {
+interface Terminal {
   id: string;
   name: string;
-  cwd: string;
+  isActive?: boolean;
 }
 
-const dummyTerminals: TerminalSession[] = [
-  { id: '1', name: 'bash', cwd: '/home/user/project' },
-  { id: '2', name: 'zsh', cwd: '/home/user/project/src' },
-  { id: '3', name: 'powershell', cwd: 'C:\\dev\\tools' },
-];
+interface OpenedTerminalsBarProps {
+  terminals: Terminal[];
+  onClickTerminal?: (id: string) => void;
+  onCloseTerminal?: (e: React.MouseEvent, id: string) => void;
+  onAddTerminal?: () => void;
+}
 
-const OpenedTerminals = () => {
-  const [terminals, setTerminals] = useState<TerminalSession[]>(dummyTerminals);
-  const [activeId, setActiveId] = useState<string | null>(null);
-
-  const handleSelect = (id: string) => {
-    setActiveId(id);
-    console.log('Switched to terminal:', id);
-  };
-
-  const handleClose = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    setTerminals(terminals.filter(t => t.id !== id));
-    if (activeId === id) setActiveId(null);
-  };
-
+const OpenedTerminalsBar: React.FC<OpenedTerminalsBarProps> = ({
+  terminals,
+  onClickTerminal,
+  onCloseTerminal,
+  onAddTerminal,
+}) => {
   return (
-    <div className="opened-terminals-container">
-      
-      <div className="terminals-list">
-        {terminals.map(terminal => (
-          <div
-            key={terminal.id}
-            className={`terminal-entry ${activeId === terminal.id ? 'active' : ''}`}
-            onClick={() => handleSelect(terminal.id)}
+    <div className="w-full bg-purple-700 h-full overflow-x-auto whitespace-nowrap flex items-center px-2 space-x-2 hide-scrollbar">
+      {terminals.map((term) => (
+        <div
+          key={term.id}
+          className={`flex items-center px-3 py-1 rounded-md cursor-pointer text-sm text-white
+            ${term.isActive ? 'bg-gray-800' : 'hover:bg-purple-800'}
+          `}
+          onClick={() => onClickTerminal?.(term.id)}
+        >
+          <span>{term.name}</span>
+          <span
+            className="ml-2 text-white hover:text-gray-300"
+            onClick={(e) => {
+              e.stopPropagation();
+              onCloseTerminal?.(e, term.id);
+            }}
           >
-            <div className="terminal-info">
-              <span className="terminal-name">{terminal.name}</span>
-              <div className="terminal-cwd">{terminal.cwd}</div>
-            </div>
-            <span className="terminal-close" onClick={(e) => handleClose(e, terminal.id)}>×</span>
-          </div>
-        ))}
-      </div>
+            ×
+          </span>
+        </div>
+      ))}
+
+      <button
+        onClick={onAddTerminal}
+        className="ml-auto px-3 py-1 text-white text-xl hover:bg-purple-800 rounded-md"
+        title="New Terminal"
+      >
+        +
+      </button>
     </div>
   );
 };
 
-export default OpenedTerminals;
+export default OpenedTerminalsBar;
