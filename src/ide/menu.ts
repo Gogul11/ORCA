@@ -83,6 +83,13 @@ export const MenuTemplate = (mainWindow: BrowserWindow): MenuItemConstructorOpti
           },
         },
         {
+          label: 'Toggle Terminal',
+          accelerator: 'CmdOrCtrl+K',
+          click: () => {
+            mainWindow.webContents.send('menu-toggle-terminal');
+          },
+        },
+        {
           label: 'Color Theme',
           submenu: [
             {

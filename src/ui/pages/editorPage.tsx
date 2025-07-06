@@ -3,6 +3,7 @@ import LabXEditor from '../components/editor';
 import LabXTerminal from '../components/terminal';
 import OpenedEditors from '../components/opened/openedEditors';
 import OpenedTerminals from '../components/opened/openedTerm';
+import type { Editor, Terminal } from '../types/types'
 import { Rnd } from 'react-rnd';
 import { 
     defaultRndSize, 
@@ -12,20 +13,7 @@ import {
     handleScreenResize, 
     rndSize } from '../utils/editoPageUtils';
 
-// Define the Editor type
-interface Editor {
-  id: string;
-  name: string;
-  isModified?: boolean;
-  isActive?: boolean;
-}
 
-// Define the Terminal type
-interface Terminal {
-  id: string;
-  name: string;
-  isActive?: boolean;
-}
 
 const EditorPage = () => {
 

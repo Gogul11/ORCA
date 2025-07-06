@@ -23,3 +23,17 @@ export interface Message {
   username: string;
 }
 
+// Define the Editor type
+export interface Editor {
+  id: string;
+  name: string;
+  isModified?: boolean;
+  isActive?: boolean;
+}
+
+// Define the Terminal type
+export interface Terminal {
+  id: string;
+  name: string;
+  isActive?: boolean;
+}
