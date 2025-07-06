@@ -1,15 +1,20 @@
+
 import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import { Window } from "./window.js";
 import { initiateTerminal } from "./terminal.js";
 import { type IPty } from "node-pty";
 import fs from 'fs'
 import path from "path";
+import { MenuTemplate } from "./menu.js";
 import { contextMenuItems } from "./utils.js";
 
 app.on('ready', () => {
 
     const ptyProcess : IPty = initiateTerminal()
     const win =  Window(app)  
+
+    const menu = Menu.buildFromTemplate(MenuTemplate(win));
+    Menu.setApplicationMenu(menu);
     let currInput :string;
     ipcMain.on('terminal-input', (_event, input) => {
         currInput = input;
@@ -81,6 +86,7 @@ app.on('ready', () => {
             console.log(error)
         }
     })
+
 
 
 
