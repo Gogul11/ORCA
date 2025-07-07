@@ -53,7 +53,7 @@ app.on('ready', () => {
     })
 
     //For opening a dir
-    ipcMain.handle('open-dir', async (event) => {
+    ipcMain.handle('open-dir', async (_event) => {
         const result = await dialog.showOpenDialog(win, {
             properties : ['openDirectory', 'openFile']
         })
@@ -63,7 +63,7 @@ app.on('ready', () => {
     })
 
     //For create file
-    ipcMain.on('create-file', (event, filePath : {val : string, isDir : boolean, name : string}) => {
+    ipcMain.on('create-file', (_event, filePath : {val : string, isDir : boolean, name : string}) => {
         const selectedPath = filePath.isDir ? filePath.val : path.dirname(filePath.val)
         const newFilePath = path.join(selectedPath, filePath.name)
         console.log(newFilePath)
@@ -76,7 +76,7 @@ app.on('ready', () => {
     })
 
     //For creating folder
-    ipcMain.on('create-folder', (event, folderPath : {val : string, isDir : Boolean, name : string}) => {
+    ipcMain.on('create-folder', (_event, folderPath : {val : string, isDir : Boolean, name : string}) => {
         const selectedPath = folderPath.isDir ? folderPath.val : path.dirname(folderPath.val)
         const newFolderPath = path.join(selectedPath, folderPath.name)
         console.log(newFolderPath)
@@ -103,7 +103,7 @@ app.on('ready', () => {
     })
 
     //For Renaming file or folder
-    ipcMain.on('rename-file-folder', (event, input : string, filePath : string) => {
+    ipcMain.on('rename-file-folder', (_event, input : string, filePath : string) => {
         const isDir : boolean = fs.statSync(filePath).isDirectory()
         const dir = path.dirname(filePath)
         const newName = path.join(dir, input)

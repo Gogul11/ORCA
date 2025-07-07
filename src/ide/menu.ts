@@ -1,4 +1,4 @@
-import { BrowserWindow, MenuItemConstructorOptions, shell } from 'electron';
+import { BrowserWindow, type MenuItemConstructorOptions, shell } from 'electron';
 
 export const MenuTemplate = (mainWindow: BrowserWindow): MenuItemConstructorOptions[] => {
   const isMac = process.platform === 'darwin';

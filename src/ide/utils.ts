@@ -1,7 +1,7 @@
 import { BrowserWindow } from "electron";
-import fs from 'fs'
+// import fs from 'fs'
 
-export const contextMenuItems = (win : BrowserWindow, filePath : string) => [
+export const contextMenuItems = (win : BrowserWindow, _filePath : string) => [
     {
         label: 'New file',
         click: () => {
@@ -17,7 +17,7 @@ export const contextMenuItems = (win : BrowserWindow, filePath : string) => [
     {
         label: 'Rename',
         click: () => {
-            const isDir = fs.statSync(filePath).isDirectory()
+            // const isDir = fs.statSync(filePath).isDirectory()
             win.webContents.send('select-rename-file-folder')
         },
     },
