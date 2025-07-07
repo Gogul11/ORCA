@@ -6,13 +6,13 @@ import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
 import Chat from '../components/Chat';
-import EditorsOpened from '../components/opened/openedEditors';
-import OpenedTerminals from '../components/opened/openedTerm';
+// import EditorsOpened from '../components/opened/openedEditors';
+// import OpenedTerminals from '../components/opened/openedTerm';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
-  const rdir = ''
+  // const rdir = ''
 
 const SideBar = () => {
   const [activeTab, setActiveTab] = useState<Tab>('files');
@@ -22,9 +22,9 @@ const SideBar = () => {
       case 'files':
         return <FileExplorer />;
       case 'editor':
-        return <EditorsOpened/>;
+        // return <EditorsOpened/>;
       case 'terminal':
-        return <OpenedTerminals />;
+        // return <OpenedTerminals />;
       case 'chat':
         return <Chat username={'Hii'} />;
       case 'connect':

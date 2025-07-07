@@ -31,7 +31,7 @@ export const handleTerminalRunTime = (
   //ctrl + c
   if(domEvent.ctrlKey && domEvent.key === 'c'){
     term.write('\r\n')
-    window.electronApi.sendInput('SIGINT\r')
+    window.electronApi.sendInput('\x03')
     return;
   }
 

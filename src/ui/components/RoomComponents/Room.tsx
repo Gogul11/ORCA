@@ -24,9 +24,9 @@ const Room: React.FC<Props> = ({ onJoin, onHost }) => {
 
       <div className="form-section">
         {activeTab === "join" ? (
-          <JoinRoomForm onSubmit={onJoin} />
+          <JoinRoomForm onSubmit={() => onJoin} />
         ) : (
-          <HostRoomForm onSubmit={onHost} />
+          <HostRoomForm onSubmit={() => onHost} />
         )}
       </div>
     </div>
