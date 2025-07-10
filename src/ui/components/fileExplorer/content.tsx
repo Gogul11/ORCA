@@ -23,6 +23,10 @@ const Content = (props : FileNode) => {
                     !props.isDir && selectedPath(props.path)
                     !props.isDir && closeSideBar()
                 }}
+            onContextMenu={(e) => {
+                if(e.button === 2)
+                    props.select({val : props.path, isDir : props.isDir})
+            }}
         >
             <div 
                 className="flex w-[80%] min-h-6 mx-2 gap-2 items-center py-2"

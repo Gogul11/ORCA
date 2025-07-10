@@ -61,7 +61,8 @@ const SideBar = () => {
           <button onClick={() => setActiveTab('terminal')}>
             <GoTerminal size={28} className={activeTab === 'terminal' ? 'text-yellow-300' : ''} />
           </button>
-          <button onClick={() => setActiveTab('chat')}>
+          {/* <button onClick={() => setActiveTab('chat')}> */}
+          <button onClick={() => toogleSideBar()}>
             <BsFillChatRightDotsFill size={28} className={activeTab === 'chat' ? 'text-yellow-300' : ''} />
           </button>
           <button onClick={() => setActiveTab('connect')}>
