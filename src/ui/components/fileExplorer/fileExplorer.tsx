@@ -4,7 +4,7 @@ import { fetchFolder,  openFolder } from '../../utils/flileExplorer';
 import { VscNewFile, VscNewFolder } from "react-icons/vsc";
 import { BiSend } from "react-icons/bi";
 import { dirStore } from '../../stores/directoryStore';
-import { sideBarStore } from '../../stores/sideBarStore';
+// import { sideBarStore } from '../../stores/sideBarStore';
 
 type FileNode = {
   name: string;
@@ -23,11 +23,10 @@ const FolderExplorer = () => {
 	const [selectedPath, setSelectedPath] = useState<{val : string, isDir : boolean}>({val : '', isDir : false})
 	const [renameInput, setRenameInput] = useState<string>('')
 	const [rename, setRename] = useState<boolean>(false)
-
 	//stores
 	const globalDir = dirStore((state) => state.setDir)
 	const dir = dirStore((state) => state.dir)
-	const closeSideBar = sideBarStore((state) => state.toggle)
+	// const closeSideBar = sideBarStore((state) => state.toggle)
 
 	//Function for fetching files and folders from the directory NOTE : Don't touch this
   	const refresh = () => {
@@ -117,7 +116,7 @@ return (
 					onClick={() => {
 						window.electronApi.openDir().then((d) => {
 							globalDir(d)
-							closeSideBar()
+							// closeSideBar()
 							setSelectedPath({isDir : true, val : d})
 						})
 					}}

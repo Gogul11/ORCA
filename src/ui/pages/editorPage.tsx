@@ -13,8 +13,7 @@ import {
     handleScreenResize, 
     rndSize } from '../utils/editoPageUtils';
 import { sideBarStore } from '../stores/sideBarStore';
-
-
+import { currentPathStore } from '../stores/currentPathStore';
 
 const EditorPage = () => {
 
@@ -28,8 +27,14 @@ const EditorPage = () => {
       { id: '4', name: 'tsconfig.json' }
     ]);
 
+    const [fileContent, setFileContent] = useState<string>("")
+    const [fileExt , setFileExt] = useState<string>("")
+
     //stores
     const toogleSideBar = sideBarStore((state) => state.toggle)
+
+    //selectedPath store 
+    const selectedPath = currentPathStore((state) => state.path)
 
   const handleEditorClick = (id: string) => {
     setEditors((prev) =>
@@ -85,6 +90,16 @@ const EditorPage = () => {
         return () => window.removeEventListener('resize', () => handleScreenResize(setEditorWidth, setTerminalWidth, setShowTerminal))
 
     }, [editorWidth, terminalWidth])
+
+    useEffect(() => {
+      (async () => {
+        const res : {data : string, ext : string} = await window.electronApi.openFile(selectedPath);
+        setFileContent(res.data)
+        setFileExt(res.ext)
+        console.log(res.ext)
+      })();
+    }, [selectedPath]);
+
     
     return (
         <div className="flex h-screen gap-6 w-screen">
@@ -102,7 +117,10 @@ const EditorPage = () => {
                     className='hide-scrollbar'
                 >
                     <div className='h-[96%] w-full border border-green-500'>
-                        <LabXEditor theme="vs-dark"/>
+                        <LabXEditor theme="vs-dark" 
+                          value={fileContent}
+                          ext={fileExt}
+                        />
                     </div>
                 </Rnd>
 
@@ -110,7 +128,7 @@ const EditorPage = () => {
                 {showTerminal && 
                     <div className="h-[96%] absolute top-0 -right-0 overflow-hidden"
                         style={{width : terminalWidth}}>
-                        <LabXTerminal />
+                        <LabXTerminal/>
                     </div>}
                 
                 <div className='h-[4%] flex w-full absolute bottom-0 border border-red-600'>
