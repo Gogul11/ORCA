@@ -42,7 +42,7 @@ const SideBar = () => {
   const toogleSideBar = sideBarStore((state) => state.toggle)
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={toogleSideBar}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
       <div className="w-[350px] h-[90vh] bg-[#282c34] rounded-xl shadow-lg flex flex-col items-center">
         
         {/* Dynamic content area */}
