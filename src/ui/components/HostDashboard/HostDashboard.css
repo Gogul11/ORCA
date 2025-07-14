@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #111;
-  color: white;
+  background-color: #21252b;
+  color: #abb2bf;
 }
 
 .header {
-  background: linear-gradient(135deg, #111111 50%, #322222 100%);
+  background: linear-gradient(135deg, #21252b 50%, #2c313c 100%);
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   font-size: 36px;
-  color: white;
+  color: #ffffff;
   font-weight: bold;
   font-family: 'Geostar Fill', cursive;
 }
@@ -26,7 +26,7 @@
 .red-dot {
   width: 30px;
   height: 30px;
-  background-color: rgb(255, 17, 0);
+  background-color: #e06c75;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -34,17 +34,17 @@
 .room-info {
   font-size: 25px;
   margin-left: 110px;
-  /* text-align: center; */
 }
 
 .controls button {
   margin-right: 10px;
-  background-color: #764444;
+  background-color: #3e4451;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   width: auto;
   font-size: 18px;
+  color: #ffffff;
 }
 
 .main-content {
@@ -61,14 +61,13 @@
 .sidebar-resizer {
   width: 5px;
   cursor: ew-resize;
-  background-color: #626262;
+  background-color: #3e4451;
   height: 100%;
   position: absolute;
   right: 0;
   top: 0;
 }
 
-
 .sidebar-resizer:hover {
-  background-color: #666;
+  background-color: #4b5263;
 }
