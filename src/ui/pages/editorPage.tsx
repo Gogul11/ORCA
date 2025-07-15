@@ -16,6 +16,7 @@ import { sideBarStore } from '../stores/sideBarStore';
 import { currentPathStore } from '../stores/currentPathStore';
 import { EditorMapsStore } from '../stores/editorsMap';
 import { openedTerminalStore } from '../stores/terminlasStore';
+import { GiDolphin } from "react-icons/gi";
 
 const EditorPage = () => {
 
@@ -84,7 +85,7 @@ const EditorPage = () => {
                 >
                     {Object.entries(openedEditors).map(([path, vals]) => (
                       vals.isOpen && 
-                      <div className='h-[96%] w-full border border-green-500'>
+                      <div className='h-[96%] w-full'>
                           <LabXEditor theme="vs-dark"
                             key={path} 
                             value={vals.data}
@@ -104,18 +105,19 @@ const EditorPage = () => {
 
                     </div>}
                 
-                <div className='h-[4%] flex w-full absolute bottom-0 border border-red-600'>
-                    <div className='w-[47%] bg-pink-600 h-full hide-scrollbar'>
+                <div className='h-[4%] flex w-full absolute bottom-0 border'>
+                    <div className='w-[47%]  h-full hide-scrollbar'>
                          <OpenedEditors editors={openedEditors}/> 
                     </div>
 
                     <div 
-                      className='w-[6%] bg-fuchsia-600 h-full hide-scrollbar'
+                      className='w-[6%] bg-indigo-600 h-full hide-scrollbar cursor-pointer flex justify-center items-center rounded-md'
                       onClick={toogleSideBar}
                     >
+                        <GiDolphin size={30}/>
                     </div>
 
-                    <div className='w-[47%] bg-indigo-600 h-full'>
+                    <div className='w-[47%] bg-indigo-900 h-full'>
                         <OpenedTerminals />
                     </div>
                 </div>

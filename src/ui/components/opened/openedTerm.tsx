@@ -10,10 +10,10 @@ const OpenedTerminalsBar: React.FC = () => {
   const deleteTerminal = openedTerminalStore((state) => state.deleteTerminal)
 
   return (
-    <div className="w-full bg-purple-700 h-full flex items-center px-1 space-x-1 relative">
+    <div className="w-full bg-blue-950 h-full flex items-center px-1 space-x-1 relative">
       <button
         onClick={() => openNewTerminal()}
-        className="flex-shrink-0 px-3 py-1 text-white text-xl hover:bg-purple-800"
+        className="px-3 py-1 text-white text-md hover:bg-indigo-900 rounded-lg"
         title="New Terminal"
       >
         +
@@ -24,7 +24,7 @@ const OpenedTerminalsBar: React.FC = () => {
           <div
             key={id}
             className={`flex items-center px-3 py-1 rounded-md cursor-pointer text-sm text-white
-              ${term.isActive ? 'bg-gray-800' : 'hover:bg-purple-800'}
+              ${term.isActive ? 'bg-blue-800' : 'hover:bg-blue-900'}
             `}
             onClick={() => toogleTerminal(id)}
           >

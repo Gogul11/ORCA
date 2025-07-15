@@ -29,12 +29,12 @@ const OpenedEditorsBar: React.FC<OpenedEditorsBarProps> = ({ editors}) => {
   }, [editors])
   
   return (
-    <div className="w-full bg-pink-600 h-full overflow-x-auto whitespace-nowrap flex items-center px-2 space-x-2 hide-scrollbar">
+    <div className="w-full bg-blue-950 h-full overflow-x-auto whitespace-nowrap flex items-center px-2 space-x-2 hide-scrollbar">
       {Object.entries(editors).map(([path, val]) => (
         <div
           key={path}
           className={`flex items-center px-3 py-1 rounded-md cursor-pointer text-sm text-white
-            ${val.isOpen ? 'bg-gray-800' : 'hover:bg-pink-700'}
+            ${val.isOpen ? 'bg-blue-800' : 'hover:bg-blue-900'}
           `}
           onClick={() => tooggleOpenedEditors(path)}
         >
