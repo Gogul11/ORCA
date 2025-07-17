@@ -34,7 +34,7 @@ const OpenedEditorsBar: React.FC<OpenedEditorsBarProps> = ({ editors}) => {
         <div
           key={path}
           className={`flex items-center px-3 py-1 rounded-md cursor-pointer text-sm text-white
-            ${val.isOpen ? 'bg-blue-800' : 'hover:bg-blue-900'}
+            ${val.isOpen ? 'bg-indigo-800' : 'hover:bg-blue-900'}
           `}
           onClick={() => tooggleOpenedEditors(path)}
         >

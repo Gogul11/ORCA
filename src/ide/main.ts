@@ -144,4 +144,15 @@ app.on('ready', () => {
             console.log(error)            
         }
     })
+
+    ipcMain.handle('save-selected-file', async(event, path, data) => {
+        try {
+            fs.writeFileSync(path,data)
+            console.log("HI")
+            return true
+        } catch (error) {
+            console.log(error)
+            return false            
+        }
+    })
 })

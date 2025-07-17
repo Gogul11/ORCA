@@ -67,6 +67,27 @@ const EditorPage = () => {
       })();
     }, [selectedPath]);
 
+    useEffect(() => {
+        window.electronApi.saveTrigger(() => {
+            const saveFile = async() => {
+                    for(const [path] of Object.entries(openedEditors)){
+                        console.log('hi')
+                        if(openedEditors[path].isOpen){
+                            const res : boolean = await window.electronApi.saveSelectedFile(path, openedEditors[path].data)
+                            console.log(path, openedEditors[path].isOpen)
+                            if(res){
+                                console.log("success")
+                            }
+                            else{
+                                console.log("fail")
+                            }
+                        }
+                    }
+            }
+            saveFile()
+        })
+    }, [openedEditors])
+
     
     return (
         <div className="flex h-screen gap-6 w-screen">
@@ -90,6 +111,7 @@ const EditorPage = () => {
                             key={path} 
                             value={vals.data}
                             ext={vals.ext}
+                            path = {path}
                           />
                       </div>
                     ))}
