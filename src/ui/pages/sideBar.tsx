@@ -7,6 +7,8 @@ import Room from '../components/RoomComponents/Room';
 import Chat from '../components/Chat';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { sideBarStore } from '../stores/sideBarStore';
+import { selectedPathStore } from '../stores/selectedPathStore';
+import { dirStore } from '../stores/directoryStore';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'open' | 'chat' | 'connect';
@@ -14,6 +16,9 @@ type Tab = 'files' | 'open' | 'chat' | 'connect';
 
 const SideBar = () => {
   const [activeTab, setActiveTab] = useState<Tab>('files');
+  const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
+  const globalDir = dirStore((state) => state.setDir)
+
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -21,13 +26,11 @@ const SideBar = () => {
         return <FileExplorer />;
       case 'open':
         (async () => {
-          const dir = await window.electronApi.openDir();
-          if (dir) {
-            sideBarStore.getState().toggle();
-            setActiveTab('files');
-          } else {
-            setActiveTab('files');
-          }
+           window.electronApi.openDir().then((d) => {
+            globalDir(d)
+            setSelectedPath({val : d, isDir : true})
+          });
+          setActiveTab('files')
         })();
         return null;
       case 'chat':

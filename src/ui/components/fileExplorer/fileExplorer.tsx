@@ -22,7 +22,6 @@ const FolderExplorer = () => {
 	const [fetch, setFetch] = useState<boolean>(false)
 	const [input, setInput] = useState<{val : string, type : string}>({val : '', type : ''})
 	const [showInput, setShowInput] = useState<boolean>(false)
-	// const [selectedPath, setSelectedPath] = useState<{val : string, isDir : boolean}>({val : '', isDir : false})
 	const [renameInput, setRenameInput] = useState<string>('')
 	const [rename, setRename] = useState<boolean>(false)
 	
@@ -146,7 +145,7 @@ const FolderExplorer = () => {
 
 
 	useEffect(() => {
-		if(dir !== '' && tree.length === 0){
+		if(dir !== ''){
 			setFetch(true)
 			refresh()
 		}
