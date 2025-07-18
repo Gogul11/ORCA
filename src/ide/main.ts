@@ -7,10 +7,13 @@ import fs from 'fs'
 import path from "path";
 import { MenuTemplate } from "./menu.js";
 import { contextMenuItems } from "./utils.js";
+import { saveSelectedFileFunc } from './api/saveFile.js'
+import {getFileName} from './api/getFileName.js'
+import {openFile} from './api/openFile.js'
 
 app.on('ready', () => {
 
-    const ptyProcess : IPty = initiateTerminal()
+    let ptyProcess : IPty;
     const win =  Window(app)  
 
     const menu = Menu.buildFromTemplate(MenuTemplate(win));
@@ -21,14 +24,18 @@ app.on('ready', () => {
         ptyProcess.write(input);
     }) 
 
-    ptyProcess.onData((data) => {
-        if(!data.includes(currInput))
-            win.webContents.send('terminal-output', data)
-    })
-
-    ipcMain.on('terminal-start', () => {
+    // if(ptyProcess)
+        
+    ipcMain.on('terminal-start', (_event, dir : string) => {
         // ptyProcess.write('\x0C');
+        ptyProcess = initiateTerminal(dir)
         ptyProcess.write('\x0C\r');
+
+        ptyProcess.onData((data) => {
+            if(!data.includes(currInput))
+                win.webContents.send('terminal-output', data)
+        })
+
     })
 
     //For reading the content in a dir
@@ -121,38 +128,11 @@ app.on('ready', () => {
     })
 
     //Opening a file
-    ipcMain.handle('open-file', async(_event, filePath : string) => {
-        try {
-            if(filePath === '') return {data : '', ext : ''};
-            const data : string = fs.readFileSync(filePath, 'utf-8')
-            const ext : string = path.extname(filePath)
-            const fileName : string = path.basename(filePath)
-            return { data, ext, fileName}
-        } catch (error) {
-            console.log(error)
-            return { data : '', ext : '', fileName : ''}
-        }
-    })
+    ipcMain.handle('open-file', openFile)
 
     //Retrive file name
-    ipcMain.handle('get-file-name', async(_event, filePath : string) => {
-        try {
-            if(filePath === '') return null
-            const filename : string = path.basename(filePath)
-            return filename
-        } catch (error) {
-            console.log(error)            
-        }
-    })
+    ipcMain.handle('get-file-name', getFileName)
 
-    ipcMain.handle('save-selected-file', async(event, path, data) => {
-        try {
-            fs.writeFileSync(path,data)
-            console.log("HI")
-            return true
-        } catch (error) {
-            console.log(error)
-            return false            
-        }
-    })
+    //Save file
+    ipcMain.handle('save-selected-file', saveSelectedFileFunc)
 })

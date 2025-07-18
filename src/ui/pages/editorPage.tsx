@@ -62,6 +62,7 @@ const EditorPage = () => {
     useEffect(() => {
       (async () => {
         const res : {data : string, ext : string, fileName : string} = await window.electronApi.openFile(selectedPath);
+        console.log(selectedPath)
         setOpenedEditors(selectedPath, true, res.data, res.ext)
         toogleEditors(selectedPath)
       })();
