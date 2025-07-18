@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import '../styles/HostRoom.css';
 
 const HostRoom: React.FC = () => {
   const [roomId] = useState('ABC123');
   const [roomName, setRoomName] = useState('');
   const [allowChat, setAllowChat] = useState(false);
-
+  const navigate = useNavigate();
   const handleCopy = () => {
     navigator.clipboard.writeText(roomId);
     alert('Room ID copied!');
   };
 
   const handleStartRoom = () => {
-    console.log('Starting room with settings:', { roomName, allowChat });
+    navigate("/hostDashboard");
   };
 
   return (

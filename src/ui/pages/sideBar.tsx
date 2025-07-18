@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import { BsCollection } from "react-icons/bs";
-import { FaRegEdit } from "react-icons/fa";
-import { GoTerminal } from "react-icons/go";
 import { MdOutlineFileOpen } from "react-icons/md";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
 import Chat from '../components/Chat';
-// import EditorsOpened from '../components/opened/openedEditors';
-// import OpenedTerminals from '../components/opened/openedTerm';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { sideBarStore } from '../stores/sideBarStore';
-import { EditorMapsStore } from '../stores/editorsMap';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'open' | 'chat' | 'connect';
@@ -47,9 +42,6 @@ const SideBar = () => {
         return null;
     }
   };
-
-  const toogleSideBar = sideBarStore((state) => state.toggle)
-    const openedEditors = EditorMapsStore((state) => state.openedEditors)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
