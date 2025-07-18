@@ -17,6 +17,7 @@ import { currentPathStore } from '../stores/currentPathStore';
 import { EditorMapsStore } from '../stores/editorsMap';
 import { openedTerminalStore } from '../stores/terminlasStore';
 import { GiDolphin } from "react-icons/gi";
+import { ActivePathStore } from '../stores/activePathStore';
 
 const EditorPage = () => {
 
@@ -68,27 +69,26 @@ const EditorPage = () => {
       })();
     }, [selectedPath]);
 
-    useEffect(() => {
+   useEffect(() => {
         window.electronApi.saveTrigger(() => {
-            const saveFile = async() => {
-                    for(const [path] of Object.entries(openedEditors)){
-                        console.log('hi')
-                        if(openedEditors[path].isOpen){
-                            const res : boolean = await window.electronApi.saveSelectedFile(path, openedEditors[path].data)
-                            console.log(path, openedEditors[path].isOpen)
-                            if(res){
-                                console.log("success")
-                            }
-                            else{
-                                console.log("fail")
-                            }
-                        }
-                    }
-            }
-            saveFile()
-        })
-    }, [openedEditors])
+            const saveFile = async () => {
+                const path = ActivePathStore.getState().path;
+                const editors = EditorMapsStore.getState().openedEditors;
 
+                const entry = editors[path];
+
+                if (entry) {
+                    const res: boolean = await window.electronApi.saveSelectedFile(path, entry.data);
+                    console.log(path, entry);
+
+                    if (res) console.log("success");
+                    else console.log("fail");
+                }
+            };
+
+            saveFile();
+        });
+    }, []); // only once on mount
     
     return (
         <div className="flex h-screen gap-6 w-screen">
