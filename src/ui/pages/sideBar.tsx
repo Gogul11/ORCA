@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BsCollection } from "react-icons/bs";
 import { FaRegEdit } from "react-icons/fa";
 import { GoTerminal } from "react-icons/go";
+import { MdOutlineFileOpen } from "react-icons/md";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
 import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
@@ -13,7 +14,7 @@ import { sideBarStore } from '../stores/sideBarStore';
 import { EditorMapsStore } from '../stores/editorsMap';
 
 // Optional: enum for tab keys
-type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
+type Tab = 'files' | 'open' | 'chat' | 'connect';
   // const rdir = ''
 
 const SideBar = () => {
@@ -23,6 +24,17 @@ const SideBar = () => {
     switch (activeTab) {
       case 'files':
         return <FileExplorer />;
+      case 'open':
+        (async () => {
+          const dir = await window.electronApi.openDir();
+          if (dir) {
+            sideBarStore.getState().toggle();
+            setActiveTab('files');
+          } else {
+            setActiveTab('files');
+          }
+        })();
+        return null;
       case 'chat':
         return <Chat username={'Hii'} />;
       case 'connect':
@@ -52,6 +64,9 @@ const SideBar = () => {
         <div className="bg-blue-800 h-[5%] w-full flex justify-evenly items-center">
           <button onClick={() => setActiveTab('files')}>
             <BsCollection size={28} className={activeTab === 'files' ? 'text-yellow-300' : ''} />
+          </button>
+          <button onClick={() => setActiveTab('open')} title="Open Folder" >
+            <MdOutlineFileOpen size={28} className={activeTab === 'open' ? 'text-yellow-300' : ''}/>
           </button>
           <button onClick={() => setActiveTab('chat')}>
             <BsFillChatRightDotsFill size={28} className={activeTab === 'chat' ? 'text-yellow-300' : ''} />
