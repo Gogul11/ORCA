@@ -145,8 +145,9 @@ const FolderExplorer = () => {
 
 
 	useEffect(() => {
-		if(dir !== ''){
+		if(dir !== '' && dirStore.getState().initialFetch){
 			setFetch(true)
+			dirStore.getState().setInitialFetch()
 			refresh()
 		}
 	}, [dir]);
@@ -184,6 +185,7 @@ return (
 						window.electronApi.openDir().then((d) => {
 							globalDir(d)
 							// closeSideBar()
+							dirStore.getState().setInitialFetch()
 							setSelectedPath({isDir : true, val : d})
 						})
 					}}

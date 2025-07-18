@@ -7,10 +7,13 @@ type ModifiedFileStoreType = {
 
 export const ModifiedFileStore = create<ModifiedFileStoreType>((set) => ({
   files: [],
-  setFiles: (path: string) =>
-    set((state) => ({
-      files: state.files.includes(path)
-        ? state.files
-        : [...state.files, path],
-    })),
+  setFiles: (path : string) => set((state) => {
+    const newArray = [...state.files]
+    if(!newArray.includes(path))
+      newArray.push(path);
+
+    return {
+      files : newArray
+    }
+  })
 }));

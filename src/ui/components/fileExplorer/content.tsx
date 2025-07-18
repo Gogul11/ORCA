@@ -3,6 +3,7 @@ import { FaFolderClosed } from "react-icons/fa6";
 import { currentPathStore } from "../../stores/currentPathStore";
 import { sideBarStore } from "../../stores/sideBarStore";
 import { ActivePathStore } from "../../stores/activePathStore";
+import { ModifiedFileStore } from "../../stores/modifiedFileStore";
 
 type FileNode = {
     name: string;
@@ -25,6 +26,7 @@ const Content = (props : FileNode) => {
                     !props.isDir && selectedPath(props.path)
                     !props.isDir && closeSideBar()
                     activeStore(props.path)
+                    !props.isDir && ModifiedFileStore.getState().setFiles(props.path)
                 }}
             onContextMenu={(e) => {
                 if(e.button === 2)

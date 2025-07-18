@@ -9,6 +9,7 @@ import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { sideBarStore } from '../stores/sideBarStore';
 import { selectedPathStore } from '../stores/selectedPathStore';
 import { dirStore } from '../stores/directoryStore';
+import { ModifiedFileStore } from '../stores/modifiedFileStore';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'open' | 'chat' | 'connect';
@@ -27,14 +28,20 @@ const SideBar = () => {
       case 'open':
         (async () => {
            window.electronApi.openDir().then((d) => {
+            if(d === '')
+                return null;
             globalDir(d)
+            dirStore.getState().setInitialFetch()
             setSelectedPath({val : d, isDir : true})
-          });
+          })
           setActiveTab('files')
         })();
         return null;
       case 'chat':
-        return <Chat username={'Hii'} />;
+        // return <Chat username={'Hii'} />;
+        sideBarStore.getState().toggle()
+        console.log(ModifiedFileStore.getState().files)
+        return null
       case 'connect':
         return <Room onJoin={function (): void {
           throw new Error('Function not implemented.');
