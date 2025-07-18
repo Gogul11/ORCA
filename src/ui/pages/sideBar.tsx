@@ -23,10 +23,6 @@ const SideBar = () => {
     switch (activeTab) {
       case 'files':
         return <FileExplorer />;
-      case 'editor':
-        // return <EditorsOpened/>;
-      case 'terminal':
-        // return <OpenedTerminals />;
       case 'chat':
         return <Chat username={'Hii'} />;
       case 'connect':
@@ -57,20 +53,7 @@ const SideBar = () => {
           <button onClick={() => setActiveTab('files')}>
             <BsCollection size={28} className={activeTab === 'files' ? 'text-yellow-300' : ''} />
           </button>
-          <button onClick={() => setActiveTab('editor')}>
-            <FaRegEdit size={28} className={activeTab === 'editor' ? 'text-yellow-300' : ''} />
-          </button>
-          <button onClick={() => setActiveTab('terminal')}>
-            <GoTerminal size={28} className={activeTab === 'terminal' ? 'text-yellow-300' : ''} />
-          </button>
-          {/* <button onClick={() => setActiveTab('chat')}> */}
-          <button onClick={() => {
-              toogleSideBar()
-              Object.entries(openedEditors).forEach(([key,val]) =>{
-                console.log(key)
-                console.log(val)
-              })
-            }}>
+          <button onClick={() => setActiveTab('chat')}>
             <BsFillChatRightDotsFill size={28} className={activeTab === 'chat' ? 'text-yellow-300' : ''} />
           </button>
           <button onClick={() => setActiveTab('connect')}>

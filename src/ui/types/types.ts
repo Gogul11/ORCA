@@ -1,4 +1,5 @@
 export interface Client {
+  basePath: any;
   id: string;
   name: string;
   regNo: string;
