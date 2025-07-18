@@ -1,15 +1,17 @@
-
-import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
+import { app, ipcMain, Menu } from "electron";
 import { Window } from "./window.js";
 import { initiateTerminal } from "./terminal.js";
 import { type IPty } from "node-pty";
-import fs from 'fs'
-import path from "path";
 import { MenuTemplate } from "./menu.js";
-import { contextMenuItems } from "./utils.js";
 import { saveSelectedFileFunc } from './api/saveFile.js'
 import {getFileName} from './api/getFileName.js'
 import {openFile} from './api/openFile.js'
+import {RenameFileFolder} from './api/renameFileFolder.js'
+import {CreateFolder} from './api/createFolder.js'
+import {CreateFile} from './api/createFile.js'
+import {OpenDir} from './api/openDir.js'
+import {ReadDir} from './api/ReadDir.js'
+import {ExplorerMenu} from './api/explorerMenu.js'
 
 app.on('ready', () => {
 
@@ -18,13 +20,13 @@ app.on('ready', () => {
 
     const menu = Menu.buildFromTemplate(MenuTemplate(win));
     Menu.setApplicationMenu(menu);
+
     let currInput :string;
+    
     ipcMain.on('terminal-input', (_event, input) => {
         currInput = input;
         ptyProcess.write(input);
     }) 
-
-    // if(ptyProcess)
         
     ipcMain.on('terminal-start', (_event, dir : string) => {
         // ptyProcess.write('\x0C');
@@ -39,93 +41,22 @@ app.on('ready', () => {
     })
 
     //For reading the content in a dir
-    ipcMain.handle('read-dir', async (_event, input : string) => {
-        const files =  fs.readdirSync(input)
-        const result = []
-
-        for(const file of files){
-            try {
-                const fullPath = path.join(input, file)
-                if(file.startsWith('.')) continue
-                result.push({
-                    name : file,
-                    path : fullPath,
-                    isDir : fs.statSync(fullPath).isDirectory()
-                })
-            } catch (error) {
-                continue
-            }
-        }
-        return result
-    })
+    ipcMain.handle('read-dir', ReadDir)
 
     //For opening a dir
-    ipcMain.handle('open-dir', async (_event) => {
-        const result = await dialog.showOpenDialog(win, {
-            properties : ['openDirectory', 'openFile']
-        })
-        if(!result.canceled && result.filePaths.length > 0)
-            return result.filePaths[0]
-        return ''
-    })
+    ipcMain.handle('open-dir', (event) => OpenDir(event, win))
 
     //For create file
-    ipcMain.on('create-file', (_event, filePath : {val : string, isDir : boolean, name : string}) => {
-        const selectedPath = filePath.isDir ? filePath.val : path.dirname(filePath.val)
-        const newFilePath = path.join(selectedPath, filePath.name)
-        console.log(newFilePath)
-        try {
-            fs.writeFileSync(newFilePath, '')
-            console.log("Written successfully")
-        } catch (error) {
-            console.log(error)
-        }
-    })
+    ipcMain.on('create-file', CreateFile)
 
     //For creating folder
-    ipcMain.on('create-folder', (_event, folderPath : {val : string, isDir : Boolean, name : string}) => {
-        const selectedPath = folderPath.isDir ? folderPath.val : path.dirname(folderPath.val)
-        const newFolderPath = path.join(selectedPath, folderPath.name)
-        console.log(newFolderPath)
-        try {
-            fs.mkdirSync(newFolderPath)
-        } catch (error) {
-            console.log(error)
-        }
-    })
-
-
-
+    ipcMain.on('create-folder', CreateFolder)
 
     //For context menu
-    ipcMain.on('explorer-menu', (event, filePath) => {
-        console.log("right click pressed")
-        console.log(filePath)
-        const menu = Menu.buildFromTemplate(contextMenuItems(win, filePath))
-        const send = BrowserWindow.fromWebContents(event.sender)
-        if(send)
-            menu.popup({window : send})
-        else
-            menu.popup()
-    })
+    ipcMain.on('explorer-menu', (event, filePath) => ExplorerMenu(event, filePath, win))
 
     //For Renaming file or folder
-    ipcMain.on('rename-file-folder', (_event, input : string, filePath : string) => {
-        const isDir : boolean = fs.statSync(filePath).isDirectory()
-        const dir = path.dirname(filePath)
-        const newName = path.join(dir, input)
-        try {
-            if(!isDir){
-                const ext = path.extname(filePath)
-                fs.renameSync(filePath, newName+ext)
-            }
-            else{
-                fs.renameSync(filePath, newName)
-            }
-        } catch (error) {
-            
-        }
-    })
+    ipcMain.on('rename-file-folder', RenameFileFolder)
 
     //Opening a file
     ipcMain.handle('open-file', openFile)
