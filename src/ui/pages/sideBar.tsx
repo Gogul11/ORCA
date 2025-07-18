@@ -11,6 +11,7 @@ import Chat from '../components/Chat';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { sideBarStore } from '../stores/sideBarStore';
 import { EditorMapsStore } from '../stores/editorsMap';
+import { ModifiedFileStore } from '../stores/modifiedFileStore';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'editor' | 'terminal' | 'chat' | 'connect';
@@ -42,6 +43,7 @@ const SideBar = () => {
 
   const toogleSideBar = sideBarStore((state) => state.toggle)
     const openedEditors = EditorMapsStore((state) => state.openedEditors)
+    const ModifiedFiles = ModifiedFileStore((state) => state.files)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -66,10 +68,9 @@ const SideBar = () => {
           {/* <button onClick={() => setActiveTab('chat')}> */}
           <button onClick={() => {
               toogleSideBar()
-              Object.entries(openedEditors).forEach(([key,val]) =>{
-                console.log(key)
-                console.log(val)
-              })
+              // console.log(ModifiedFiles)
+              const files = ModifiedFileStore.getState().files
+              console.log(files)
             }}>
             <BsFillChatRightDotsFill size={28} className={activeTab === 'chat' ? 'text-yellow-300' : ''} />
           </button>

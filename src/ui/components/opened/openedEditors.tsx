@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { EditorMapsStore } from '../../stores/editorsMap';
 import { ActivePathStore } from '../../stores/activePathStore';
+import { ModifiedFileStore } from '../../stores/modifiedFileStore';
 
 
 type openedEditorsObjectType = {
@@ -17,6 +18,7 @@ const OpenedEditorsBar: React.FC<OpenedEditorsBarProps> = ({ editors}) => {
   const tooggleOpenedEditors = EditorMapsStore((state) => state.toogleEditors)
   const deleteEditors = EditorMapsStore((state) => state.deleteEditor)
   const ActiveEditorPath = ActivePathStore((state) => state.setPath)
+  const ModifiedFiles = ModifiedFileStore((state) => state.setFiles)
 
   const [editorNames, setEditorsName] = useState<Record<string, string>>({})
 
@@ -41,6 +43,7 @@ const OpenedEditorsBar: React.FC<OpenedEditorsBarProps> = ({ editors}) => {
           onClick={() => {
             tooggleOpenedEditors(path)
             ActiveEditorPath(path)
+            ModifiedFiles(path)
           }}
         >
           <span>
