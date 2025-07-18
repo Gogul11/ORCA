@@ -19,5 +19,7 @@ contextBridge.exposeInMainWorld('electronApi', {
 
 
     saveTrigger : (func : () => void) => ipcRenderer.on('save-trigger', (_event) => func()),
-    saveSelectedFile : (path : string, data : string) => ipcRenderer.invoke('save-selected-file', path, data)
+    saveSelectedFile : (path : string, data : string) => ipcRenderer.invoke('save-selected-file', path, data),
+
+    saveAllTrigger : (func : () => void) => ipcRenderer.on('save-all-trigger', func)
 })

@@ -46,6 +46,13 @@ export const MenuTemplate = (mainWindow: BrowserWindow): MenuItemConstructorOpti
             mainWindow.webContents.send('save-trigger');
           },
         },
+        {
+          label: 'Save All',
+          accelerator: 'CmdOrCtrl+A+S',
+          click: () => {
+            mainWindow.webContents.send('save-all-trigger');
+          },
+        },
         { type: 'separator' as const },
         ...(isMac ? [{ role: 'close' as const }] : [{ role: 'quit' as const }]),
       ],

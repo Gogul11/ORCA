@@ -18,6 +18,7 @@ import { EditorMapsStore } from '../stores/editorsMap';
 import { openedTerminalStore } from '../stores/terminlasStore';
 import { GiDolphin } from "react-icons/gi";
 import { ActivePathStore } from '../stores/activePathStore';
+import { ModifiedFileStore } from '../stores/modifiedFileStore';
 
 const EditorPage = () => {
 
@@ -89,6 +90,27 @@ const EditorPage = () => {
             saveFile();
         });
     }, []); // only once on mount
+
+
+    useEffect(() => {
+        window.electronApi.saveAllTrigger(() => {
+            if(ModifiedFileStore.getState().files.length <= 0){
+                window.alert("Nothing to save for now")
+                return;
+            }
+            const saveAllFile = async () => {
+                const openedFiles = ModifiedFileStore.getState().files
+                for(const val in openedFiles){
+                    console.log(openedFiles[val])
+                    const res: boolean = await window.electronApi.saveSelectedFile(openedFiles[val], EditorMapsStore.getState().openedEditors[openedFiles[val]].data);
+                     if (res) console.log("success");
+                    else console.log("fail");
+                }
+            }
+
+            saveAllFile()
+        })
+    }, [])
     
     return (
         <div className="flex h-screen gap-6 w-screen">

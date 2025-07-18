@@ -20,7 +20,9 @@ export interface apiType {
     getFileName : (path : string) => Promise<string>,
 
     saveTrigger : (func : () => void) => void,
-    saveSelectedFile : (path : string, data : string) => Promise<boolean>
+    saveSelectedFile : (path : string, data : string) => Promise<boolean>,
+
+    saveAllTrigger : (func : () => void) => void
 }
 
 declare global {
