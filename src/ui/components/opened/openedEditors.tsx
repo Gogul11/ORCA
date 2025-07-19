@@ -33,7 +33,7 @@ const OpenedEditorsBar: React.FC<OpenedEditorsBarProps> = ({ editors}) => {
   }, [editors])
   
   return (
-    <div className="w-full bg-blue-950 h-full overflow-x-auto whitespace-nowrap flex items-center px-2 space-x-2 hide-scrollbar">
+    <div className="w-full bg-blue-950 h-full overflow-x-scroll whitespace-nowrap flex items-center px-2 space-x-2 hide-scrollbar">
       {Object.entries(editors).map(([path, val]) => (
         <div
           key={path}

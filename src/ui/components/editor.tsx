@@ -31,8 +31,6 @@ const LabXEditor : React.FC<propsType> = ({theme, value, ext, path}) => {
       <Editor
         height="100%"
         width="100%"
-        // defaultLanguage={ext}
-        // defaultValue="// labX is live"
         language={ext}
         value={value}
         theme={theme}

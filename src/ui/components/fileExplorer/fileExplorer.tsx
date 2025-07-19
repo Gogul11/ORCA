@@ -204,7 +204,7 @@ return (
 						}
 					}	
 				>
-					<div id='create-id' className='h-8 flex items-center gap-4 px-4'>
+					<div id='create-id' className='h-8 flex items-center gap-4 px-4 mt-2'>
 						<VscNewFile 
 							size={22} 
 							className=' text-[#98c379] cursor-pointer hover:text-[#c678dd]'

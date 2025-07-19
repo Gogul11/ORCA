@@ -1,9 +1,9 @@
 import { FaFileCode } from "react-icons/fa6";
 import { FaFolderClosed } from "react-icons/fa6";
 import { currentPathStore } from "../../stores/currentPathStore";
-import { sideBarStore } from "../../stores/sideBarStore";
 import { ActivePathStore } from "../../stores/activePathStore";
 import { ModifiedFileStore } from "../../stores/modifiedFileStore";
+import { welcomePageStore } from "../../stores/welcomePageStore";
 
 type FileNode = {
     name: string;
@@ -16,7 +16,6 @@ type FileNode = {
 const Content = (props : FileNode) => {
 
     const selectedPath = currentPathStore((state) => state.setPath)
-    const closeSideBar = sideBarStore((state) => state.toggle)
     const activeStore = ActivePathStore((state) => state.setPath)
 
     return (
@@ -24,7 +23,7 @@ const Content = (props : FileNode) => {
             onClick={() => {
                     props.select({val : props.path, isDir : props.isDir})
                     !props.isDir && selectedPath(props.path)
-                    !props.isDir && closeSideBar()
+                    welcomePageStore.getState().setOpen(false)
                     activeStore(props.path)
                     !props.isDir && ModifiedFileStore.getState().setFiles(props.path)
                 }}

@@ -5,9 +5,6 @@ type FileItem = {
 };
 
 export interface apiType {
-    sendInput: (msg: string) => void;
-    receiveOutput : (func : (data : string) => void) => void;
-    startTerminal : (dir : string) => void,
     readDir: (path: string) => Promise<FileItem[]>,
     openDir : () => Promise<string>,
     createFile : (path : object) => void,

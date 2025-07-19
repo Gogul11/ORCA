@@ -6,10 +6,8 @@ import { VscVmConnect } from "react-icons/vsc";
 import Room from '../components/RoomComponents/Room';
 import Chat from '../components/Chat';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
-import { sideBarStore } from '../stores/sideBarStore';
 import { selectedPathStore } from '../stores/selectedPathStore';
 import { dirStore } from '../stores/directoryStore';
-import { ModifiedFileStore } from '../stores/modifiedFileStore';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'open' | 'chat' | 'connect';
@@ -38,10 +36,7 @@ const SideBar = () => {
         })();
         return null;
       case 'chat':
-        // return <Chat username={'Hii'} />;
-        sideBarStore.getState().toggle()
-        console.log(ModifiedFileStore.getState().files)
-        return null
+        return <Chat username={'Hii'} />;
       case 'connect':
         return <Room onJoin={function (): void {
           throw new Error('Function not implemented.');
@@ -54,8 +49,8 @@ const SideBar = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="w-[350px] h-[90vh] bg-[#282c34] rounded-xl shadow-lg flex flex-col items-center">
+    // <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="w-full h-full bg-[#282c34] shadow-lg flex flex-col items-center">
         
         {/* Dynamic content area */}
         <div className="bg-[#282c34]/50 h-[95%] w-[96%] overflow-y-auto hide-scrollbar m-2 ">
@@ -78,7 +73,7 @@ const SideBar = () => {
           </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

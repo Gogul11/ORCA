@@ -1,7 +1,5 @@
 import { app, ipcMain, Menu } from "electron";
 import { Window } from "./window.js";
-import { initiateTerminal } from "./terminal.js";
-import { type IPty } from "node-pty";
 import { MenuTemplate } from "./menu.js";
 import { saveSelectedFileFunc } from './api/saveFile.js'
 import {getFileName} from './api/getFileName.js'
@@ -15,30 +13,10 @@ import {ExplorerMenu} from './api/explorerMenu.js'
 
 app.on('ready', () => {
 
-    let ptyProcess : IPty;
     const win =  Window(app)  
 
     const menu = Menu.buildFromTemplate(MenuTemplate(win));
     Menu.setApplicationMenu(menu);
-
-    let currInput :string;
-    
-    ipcMain.on('terminal-input', (_event, input) => {
-        currInput = input;
-        ptyProcess.write(input);
-    }) 
-        
-    ipcMain.on('terminal-start', (_event, dir : string) => {
-        // ptyProcess.write('\x0C');
-        ptyProcess = initiateTerminal(dir)
-        ptyProcess.write('\x0C\r');
-
-        ptyProcess.onData((data) => {
-            if(!data.includes(currInput))
-                win.webContents.send('terminal-output', data)
-        })
-
-    })
 
     //For reading the content in a dir
     ipcMain.handle('read-dir', ReadDir)
