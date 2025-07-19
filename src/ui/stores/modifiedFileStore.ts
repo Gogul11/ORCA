@@ -17,5 +17,5 @@ export const ModifiedFileStore = create<ModifiedFileStoreType>((set) => ({
       files : newArray
     }
   }),
-  clearFiles : () => set((state) => ({files : []}))
+  clearFiles : () => set({files : []})
 }));
