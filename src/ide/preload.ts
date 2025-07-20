@@ -18,5 +18,9 @@ contextBridge.exposeInMainWorld('electronApi', {
     saveTrigger : (func : () => void) => ipcRenderer.on('save-trigger', (_event) => func()),
     saveSelectedFile : (path : string, data : string) => ipcRenderer.invoke('save-selected-file', path, data),
 
-    saveAllTrigger : (func : () => void) => ipcRenderer.on('save-all-trigger', func)
+    saveAllTrigger : (func : () => void) => ipcRenderer.on('save-all-trigger', func),
+
+    submitWorkSpace : (folderPath : string, outputFolderName : string) => ipcRenderer.invoke('submit-work-space', folderPath, outputFolderName),
+
+    startServer : (roomId : string) => ipcRenderer.invoke('start-server', roomId)
 })
