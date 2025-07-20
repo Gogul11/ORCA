@@ -18,7 +18,6 @@ const SideBar = () => {
   const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
   const globalDir = dirStore((state) => state.setDir)
 
-
   const renderTabContent = () => {
     switch (activeTab) {
       case 'files':
@@ -36,6 +35,11 @@ const SideBar = () => {
         })();
         return null;
       case 'chat':
+        (async () => {
+          const response = await window.electronApi.submitWorkSpace(dirStore.getState().dir, "demoTest")
+          if(response) console.log("success")
+          else console.log("fail")
+        })();
         return <Chat username={'Hii'} />;
       case 'connect':
         return <Room onJoin={function (): void {
