@@ -21,12 +21,13 @@ export const contextMenuItems = (win : BrowserWindow, _filePath : string) => [
             win.webContents.send('select-rename-file-folder')
         },
     },
-    {
-        label: 'Delete',
-        click: () => {
-        console.log('delete');
+            {
+            label: 'Delete',
+            click: () => {
+                win.webContents.send('trigger-delete-file-folder', _filePath)
+            }
         },
-    },
+
     {
         label: 'Copy',
         click: () => {

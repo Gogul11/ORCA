@@ -11,6 +11,12 @@ contextBridge.exposeInMainWorld('electronApi', {
     newFileOrFolder : (func : (isDir : boolean) => void) => ipcRenderer.on('new-file-folder', (_event, isDir) => func(isDir)),
     selectRenameFileOrFolder : (func : () => void) => ipcRenderer.on('select-rename-file-folder', (_event) => func()),
     renameFileOrFolder : (name : string, filePath : string) => ipcRenderer.send('rename-file-folder', name, filePath),
+    deleteFileOrFolder: (filePath: string) => ipcRenderer.send('delete-file-folder', filePath),
+    deleteFileOrFolderTrigger: (func: (filePath: string) => void) =>
+        ipcRenderer.on('trigger-delete-file-folder', (_event, filePath) => func(filePath)),
+
+
+
     openFile : (path : string) => ipcRenderer.invoke('open-file', path),
     getFileName : (path : string) => ipcRenderer.invoke('get-file-name', path),
 
