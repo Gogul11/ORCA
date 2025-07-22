@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { io } from "socket.io-client";
 
 const HostRoomForm: React.FC = () => {
   const [name, setName] = useState("");
@@ -11,6 +10,8 @@ const HostRoomForm: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isHosted, setIsHosted] = useState(false);
   const navigate = useNavigate();
+
+  const [adminDir, setAdminDir] = useState("")
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
@@ -34,13 +35,11 @@ const HostRoomForm: React.FC = () => {
     }
 
     setErrors({});
-    window.electronApi.startServer(roomId, name, port);
+    window.electronApi.startServer(roomId, name, port, adminDir);
     console.log(name, roomId, port, staffId)
     setIsHosted(true);
   };
   const handleStartRoom = () => {
-    const soc = io(`http://${ip}:${port}`)
-    soc.emit('admin-join')
     navigate("/hostDashboard");
   };
 
@@ -107,7 +106,29 @@ const HostRoomForm: React.FC = () => {
         {errors.port && <span className="error-msg">{errors.port}</span>}
       </div>
 
-     
+      <div className="flex flex-col justify-center items-center gap-2 my-4">
+        <div
+          className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow transition duration-200"
+          onClick={async () => {
+            try {
+              const dir = await window.electronApi.openDir();
+              setAdminDir(dir);
+            } catch (e) {
+              console.error(e);
+              window.alert(e);
+            }
+          }}
+        >
+          Select Directory
+        </div>
+
+        {adminDir ? (
+          <p className="text-green-600 text-sm">📁 Directory : {'\n'} {adminDir}</p>
+        ) : isHosted ? (
+          <p className="text-yellow-500 text-sm">⚠️ Please select a directory before starting the room</p>
+        ) : null}
+      </div>
+
 
       {!isHosted ? (
         <button type="submit" className="host-btn">
