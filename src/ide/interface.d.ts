@@ -5,6 +5,8 @@ type FileItem = {
 };
 
 export interface apiType {
+	deleteFileOrFolder(val: string): unknown;
+	deleteFileOrFolderTrigger(arg0: (filePath: string) => void): unknown;
     readDir: (path: string) => Promise<FileItem[]>,
     openDir : () => Promise<string>,
     createFile : (path : object) => void,

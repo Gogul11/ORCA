@@ -7,6 +7,7 @@ import {openFile} from './api/openFile.js'
 import {RenameFileFolder} from './api/renameFileFolder.js'
 import {CreateFolder} from './api/createFolder.js'
 import {CreateFile} from './api/createFile.js'
+import { DeleteFileFolder } from './api/deleteFIleFolder.js'
 import {OpenDir} from './api/openDir.js'
 import {ReadDir} from './api/ReadDir.js'
 import {ExplorerMenu} from './api/explorerMenu.js'
@@ -37,6 +38,10 @@ app.on('ready', () => {
 
     //For Renaming file or folder
     ipcMain.on('rename-file-folder', RenameFileFolder)
+    
+    //For Deleting a file or folder
+    ipcMain.on('delete-file-folder', DeleteFileFolder)
+    
 
     //Opening a file
     ipcMain.handle('open-file', openFile)

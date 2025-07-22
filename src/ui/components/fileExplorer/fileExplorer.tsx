@@ -36,18 +36,35 @@ const FolderExplorer = () => {
 	// const closeSideBar = sideBarStore((state) => state.toggle)
 
 	//Function for fetching files and folders from the directory NOTE : Don't touch this
-  	const refresh = () => {
-		fetchFolder(dir)
-        .then((data) => {
-          setTree(data)
-          setFetch(false)
-		  console.log(data)
-        })
-        .catch((_err : any) => {
-            window.alert("Oops, Error while fetching!")
-            setFetch(false)
-        })
-	}
+const refresh = (customDir?: string) => {
+	const refreshPath = customDir || dir;
+
+	fetchFolder(refreshPath)
+		.then((data) => {
+			setTree(data);
+			setFetch(false);
+		})
+		.catch((_err: any) => {
+			// Try refreshing parent instead
+			const parentDir = refreshPath.split('/').slice(0, -1).join('/');
+			if (parentDir && parentDir !== refreshPath) {
+				fetchFolder(parentDir)
+					.then((data) => {
+						setTree(data);
+						setSelectedPath({ val: parentDir, isDir: true });
+						setFetch(false);
+					})
+					.catch((_e: any) => {
+						window.alert("Oops, Error while fetching!");
+						setFetch(false);
+					});
+			} else {
+				window.alert("Oops, Error while fetching!");
+				setFetch(false);
+			}
+		});
+};
+
 	
 
 	//Function for creating file and folder/
@@ -117,6 +134,43 @@ const FolderExplorer = () => {
 		setRenameInput('');
 		refresh();
 	};
+
+// const handleDelete = () => {
+// 	if (!selectedPath.val) {
+// 		window.alert("No file/folder selected to delete.");
+// 		return;
+// 	}
+
+// 	const confirmDelete = window.confirm(`Are you sure you want to delete "${selectedPath.val}"?`);
+// 	if (!confirmDelete) return;
+
+// 	window.electronApi.deleteFileOrFolder(selectedPath.val);
+// 	setFetch(true);
+// 	refresh();
+// };
+
+
+
+
+useEffect(() => {
+	window.electronApi.deleteFileOrFolderTrigger((filePath: string) => {
+		const confirmDelete = window.confirm(`Are you sure you want to delete:\n${filePath}?`);
+		if (!confirmDelete) return;
+
+		const parentDir = filePath.split('/').slice(0, -1).join('/');
+
+		// Reset selection to parent
+		setSelectedPath({ val: parentDir, isDir: true });
+
+		// Delete and refresh from parent
+		window.electronApi.deleteFileOrFolder(filePath);
+		setFetch(true);
+		refresh(parentDir);
+	});
+}, []);
+
+
+
 
 
 	//Function for printing like tree structure NOTE : Don't touch this
