@@ -25,6 +25,7 @@ const JoinRoomForm: React.FC = () => {
 
   const[joined, setJoined] = useState(false)
   const[commitLoader, setCommitLoader] = useState(false)
+  const [submited, setSubmited] = useState(false)
 
 
   const [submitRegNo, setSubmitRegNo] = useState('')
@@ -106,6 +107,12 @@ const JoinRoomForm: React.FC = () => {
     </div>
   );
 
+  const handleEndSession = async() => {
+    const soc = io(ipStore.getState().ip);
+    setJoined(false)
+    soc.emit('end-session', {regNo : submitRegNo})
+  }
+
   return (
     <div>
       {!joined && roomIdStore.getState().roomId === ''  ? 
@@ -173,7 +180,7 @@ const JoinRoomForm: React.FC = () => {
               )}
             </div>
             <button 
-              disabled={!isSubmitRegNoValid || commitLoader}
+              disabled={!isSubmitRegNoValid || commitLoader || submited}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200 mt-4"
               onClick={async() => {
                           if (!isSubmitRegNoValid) return;
@@ -218,6 +225,7 @@ const JoinRoomForm: React.FC = () => {
 
                             if(fileUploadResponse.data.success){
                               window.alert(fileUploadResponse.data.message)
+                              setSubmited(true)
                             }
                           } catch (error) {
                               console.error("Commit failed:", error);
@@ -225,12 +233,20 @@ const JoinRoomForm: React.FC = () => {
                           }
                           
                           
-
                           setCommitLoader(false)
               }}
             >
               {commitLoader ? 'commiting..do not close tab' : 'Commit your code base to teacher' }
             </button>
+
+            {submited && 
+              <button 
+                className="h-10 bg-orange-600 w-full my-4 rounded-2xl text-black"
+                onClick={handleEndSession}
+              >
+                End session
+              </button>
+            }
           </div>
 
       }

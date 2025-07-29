@@ -33,7 +33,7 @@ export const startServer = (
 
     const joinedStudentsList = new Map<
             string,
-            { name: string; rollNo: string; startTime: Date; endTime?: Date }
+            { name: string; rollNo: string; startTime: Date; endTime?: Date, status : "active" | "ended" }
             >();
     
     io.on('connection', (socket) => {
@@ -49,19 +49,42 @@ export const startServer = (
                     name : name,
                     rollNo : regNo,
                     startTime : new Date(),
+                    status : "active"
                 })
             }
 
             if(adminSocketId){
                 socket.join('student-room')
                 socket.emit('joined-response')
-                socket.to('admin-room').emit('joined-studs', {name, regNo})
+                socket.to('admin-room').emit('joined-studs', 
+                    Array.from(joinedStudentsList.entries())
+                    .map(([regNo , student]) => ({
+                        regNo : regNo,
+                        name : student.name,
+                        startTime : student.startTime,
+                        endTime : student.endTime,
+                        status : student.status
+                })))
                 console.log('hi from backend')
             }
             else{
                 socket.emit('join-failed', { message : "Either host down or Server is not initialized.."})
             }
             
+        })
+
+        socket.on('end-session', ({regNo}) => {
+            console.log(regNo)
+            const stud = joinedStudentsList.get(regNo)
+            if(stud){
+                stud.endTime = new Date(),
+                stud.status = "ended",
+                joinedStudentsList.set(regNo, stud)
+                socket.leave('student-room')
+                socket.disconnect(true)
+                console.log(`${regNo} ended the session`);
+            }
+
         })
         
         socket.on('admin-join', () => {

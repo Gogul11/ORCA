@@ -8,6 +8,8 @@ interface Client {
   name: string;
   regNo: string;
   startTime: string;
+  endTime ?: string
+  status : boolean
 }
 
 type sideBarProps = {setClient : (val : Client) => void}
@@ -23,14 +25,31 @@ const Sidebar: React.FC<sideBarProps> = ({setClient}) => {
 
     soc.emit('admin-join');
 
-    soc.on('joined-studs', ({ name, regNo }) => {
-      const newClient: Client = {
-        id: `${regNo}-${Date.now()}`,
-        name,
-        regNo,
-        startTime: new Date().toISOString(),
-      };
-      setClients(prev => [...prev, newClient]);
+    soc.on('joined-studs', (joinedStudentList) => {
+      console.log(joinedStudentList)
+      setClients((prev) => {
+        const updated = [...prev]
+        joinedStudentList.forEach((s : any) => {
+          const exsistingIdx = updated.findIndex(c => c.regNo === s.regNo)
+
+          const entry = {
+            id: `${s.regNo}-${Date.now()}`,
+            name : s.name,
+            regNo : s.regNo,
+            startTime : new Date(s.startTime).toISOString(),
+            endTime: s.endTime ? new Date(s.endTime).toISOString() : undefined,
+            status: s.status,
+          }
+
+          if(exsistingIdx === -1){
+            updated.push(entry)
+          }
+          else{
+            updated[exsistingIdx] = {...updated[exsistingIdx], ...entry}
+          }
+        });
+        return updated
+      })
     });
 
     return () => {
