@@ -80,6 +80,15 @@ export const startServer = (
                 stud.endTime = new Date(),
                 stud.status = "ended",
                 joinedStudentsList.set(regNo, stud)
+                socket.to('admin-room').emit('joined-studs', 
+                    Array.from(joinedStudentsList.entries())
+                    .map(([regNo , student]) => ({
+                        regNo : regNo,
+                        name : student.name,
+                        startTime : student.startTime,
+                        endTime : student.endTime,
+                        status : student.status
+                })))
                 socket.leave('student-room')
                 socket.disconnect(true)
                 console.log(`${regNo} ended the session`);

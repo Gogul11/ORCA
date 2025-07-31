@@ -110,6 +110,8 @@ const JoinRoomForm: React.FC = () => {
   const handleEndSession = async() => {
     const soc = io(ipStore.getState().ip);
     setJoined(false)
+    setSubmited(false)
+    roomIdStore.getState().roomId = ''
     soc.emit('end-session', {regNo : submitRegNo})
   }
 
