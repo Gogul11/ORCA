@@ -96,10 +96,11 @@ const EditorPage = () => {
                             vals.isOpen && 
                             <div className={`h-[96%] ${isSideBarOpen ? 'w-[80%]' : 'w-full'}`}>
                                 <LabXEditor theme="vs-dark"
-                                key={path} 
-                                value={vals.data}
-                                ext={vals.ext}
-                                path = {path}
+                                    key={path} 
+                                    value={vals.data}
+                                    ext={vals.ext}
+                                    path = {path}
+                                    read={false}
                                 />
                             </div>
                         ))
