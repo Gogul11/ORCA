@@ -234,6 +234,7 @@ const JoinRoomForm: React.FC = () => {
                               window.alert("Commit failed. Check your connection or try again.");
                           }
                           
+                          window.electronApi.deleteFileOrFolder(response);
                           
                           setCommitLoader(false)
               }}
