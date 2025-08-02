@@ -6,6 +6,7 @@ import { BiSend } from "react-icons/bi";
 import { dirStore } from '../../stores/directoryStore';
 import { dirListStore } from '../../stores/dirListStore';
 import { selectedPathStore } from '../../stores/selectedPathStore';
+import { EditorMapsStore } from '../../stores/editorsMap';
 // import { sideBarStore } from '../../stores/sideBarStore';
 
 type FileNode = {
@@ -181,7 +182,7 @@ useEffect(() => {
 			style={{ paddingLeft: level + 16 }}
 			className={`
 				group transition-all duration-150 rounded-sm
-				${selectedPath.val === node.path ? 'bg-[#3e4451] text-[#abb2bf]' : ''}
+				${EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? 'bg-[#3e4451] text-[#abb2bf]' : ''}
 				${node.isDir ? 'text-[#61afef]' : 'text-[#e5c07b]'}
 			`}
 		>

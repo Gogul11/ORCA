@@ -22,6 +22,7 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
   const [selectedPath, setSelectedPath] = useState({ val: '', isDir: false });
   const [fetch, setFetch] = useState<boolean>(false);
   const [folderPath, setFolderPath] = useState<string>('');
+  const [notSubmited, setNotSubmited] = useState<boolean>(false)
 
   useEffect(() => {
     const soc = io(ipStore.getState().ip);
@@ -34,16 +35,17 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
       const handleNotFound = () => {
         window.alert(`Student ${regNo} not in the room`);
         setFolderPath('');
-        refresh();
+        setTimeout(() => refresh(''), 0);
       };
       const handleFolderMissing = () => {
-        window.alert(`Student ${regNo} has not yet submitted`);
+        setNotSubmited(true)
         setFolderPath('');
-        refresh();
+        setTimeout(() => refresh(''), 0);
       };
       const handleFolderFound = (path: string) => {
         setFolderPath(path);
         setTimeout(() => refresh(path), 0);
+        setNotSubmited(false)
       };
 
       soc.on('student-not-found', handleNotFound);
@@ -54,7 +56,7 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
     return () => {
       soc.disconnect();
     };
-  }, [client]);
+  }, [client, client?.zippedPath]);
 
   const refresh = (newPath = folderPath) => {
     if (newPath === '') return;
@@ -111,17 +113,18 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
   }
 
   if (fetch) {
-    return <div className="p-5 bg-[#21252b] text-[#abb2bf]">Fetching folder</div>;
+    return <div className="p-5 bg-[#21252b] textauto-[#abb2bf]">Fetching folder</div>;
   }
 
   return (
-    <div className="flex flex-col p-5 bg-[#21252b] text-[#abb2bf] border-r border-[#3e4451] h-[90%]">
-      <h2 className="mb-4">
+    <div className="flex flex-col p-2 flex-1 bg-[#21252b] text-[#abb2bf] border-r border-[#3e4451] h-full ">
+      <div className='border-b-2 border-[#3e4451] h-[6%] mx-auto'>
         <span className="text-[#61afef] text-2xl font-bold mr-2">{client.name}</span>
         <span className="text-[#e5c07b] text-xl font-bold font-mono">{client.regNo}</span>
-      </h2>
+      </div>
 
-      <div className="text-base h-[500px] overflow-auto">
+      <div className="overflow-auto h-[94%] border-b-2 border-[#3e4451]">
+        {notSubmited && <div className="p-5 bg-[#21252b] text-[#abb2bf]">Student not submited</div>}
         {folderPath === '' ? null : renderTree(tree)}
       </div>
     </div>

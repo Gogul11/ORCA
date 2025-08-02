@@ -23,9 +23,9 @@ const HostDashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen bg-[#21252b] text-[#abb2bf]">
+    <div className="flex flex-col h-screen  text-[#abb2bf]">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#21252b] to-[#2c313c] px-5 py-3 flex items-center justify-between">
+      <div className="h-[5%] bg-gradient-to-br from-[#21252b] to-[#2c313c] px-5 py-3 flex items-center justify-between">
         <div className="flex items-center text-white text-3xl font-bold font-[Geostar_Fill]">
           <span>Orca</span>
         </div>
@@ -41,14 +41,14 @@ const HostDashboard: React.FC = () => {
       </div>
 
       {/* Main Layout */}
-      <div className="flex flex-1">
+      <div className="flex h-[95%]">
         {sidebarVisible && (
           <div className="h-full bg-[#2b2b2b]" style={{ width: '15%' }}>
             <Sidebar setClient={setSelectedClient} />
           </div>
         )}
 
-        <div className="h-full overflow-y-auto bg-[#252526]" style={{ width: '25%' }}>
+        <div className="h-full bg-[#252526]" style={{ width: '25%' }}>
           <ClientFolderView client={selectedClient} />
         </div>
 

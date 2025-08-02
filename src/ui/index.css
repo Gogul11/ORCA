@@ -19,3 +19,22 @@ button:hover{
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
+
+/* Electron/Chromium Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4b5261;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5c6370;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
