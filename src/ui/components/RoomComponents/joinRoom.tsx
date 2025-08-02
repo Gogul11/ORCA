@@ -181,67 +181,68 @@ const JoinRoomForm: React.FC = () => {
                 <div className="text-sm text-red-600 mt-1">Register Number required</div>
               )}
             </div>
-            <button 
-              disabled={!isSubmitRegNoValid || commitLoader || submited}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200 mt-4"
-              onClick={async() => {
-                          if (!isSubmitRegNoValid) return;
+            {!submited && 
+              <button 
+                disabled={!isSubmitRegNoValid || commitLoader || submited}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200 mt-4"
+                onClick={async() => {
+                            if (!isSubmitRegNoValid) return;
 
-                          setCommitLoader(true)
+                            setCommitLoader(true)
 
-                          if(dirStore.getState().dir.trim() === ''){
-                            window.alert("Choose the directory you worked before commit operations")
-                            setCommitLoader(false)
-                            return;
-                          }
-
-
-                          const checkStud = await axios.post(`${ipStore.getState().ip}/check`, {regNo : submitRegNo})
-                          if(checkStud.data.success === 2){
-                            window.alert("Checkyour register number or Try rejoining the server")
-                            setCommitLoader(false)
-                            return;
-                          }
-                          
-                          const response = await window.electronApi.submitWorkSpace(dirStore.getState().dir, submitRegNo)
-                          if (!response) {
-                              console.log("Zipping failed");
-                              window.alert("zipping failed or retry")
-                              setCommitLoader(false);
+                            if(dirStore.getState().dir.trim() === ''){
+                              window.alert("Choose the directory you worked before commit operations")
+                              setCommitLoader(false)
                               return;
-                          }
-                          console.log("zipped at : ", response)
-
-                          const zipBlob = await window.electronApi.readZipContent(response)
-                          const zipBlobFile = new File([zipBlob], `${submitRegNo}.zip`, {
-                            type : 'application/zip'
-                          })
-
-                          const commitFormData = new FormData()
-
-                          commitFormData.append('zipfile', zipBlobFile)
-                          commitFormData.append('regNo', submitRegNo)
-
-                          try {
-                            const fileUploadResponse = await axios.post(`${ipStore.getState().ip}/commit`, commitFormData)
-
-                            if(fileUploadResponse.data.success){
-                              window.alert(fileUploadResponse.data.message)
-                              setSubmited(true)
                             }
-                          } catch (error) {
-                              console.error("Commit failed:", error);
-                              window.alert("Commit failed. Check your connection or try again.");
-                          }
-                          
-                          window.electronApi.deleteFileOrFolder(response);
-                          
-                          setCommitLoader(false)
-              }}
-            >
-              {commitLoader ? 'commiting..do not close tab' : 'Commit your code base to teacher' }
-            </button>
 
+
+                            const checkStud = await axios.post(`${ipStore.getState().ip}/check`, {regNo : submitRegNo})
+                            if(checkStud.data.success === 2){
+                              window.alert("Checkyour register number or Try rejoining the server")
+                              setCommitLoader(false)
+                              return;
+                            }
+                            
+                            const response = await window.electronApi.submitWorkSpace(dirStore.getState().dir, submitRegNo)
+                            if (!response) {
+                                console.log("Zipping failed");
+                                window.alert("zipping failed or retry")
+                                setCommitLoader(false);
+                                return;
+                            }
+                            console.log("zipped at : ", response)
+
+                            const zipBlob = await window.electronApi.readZipContent(response)
+                            const zipBlobFile = new File([zipBlob], `${submitRegNo}.zip`, {
+                              type : 'application/zip'
+                            })
+
+                            const commitFormData = new FormData()
+
+                            commitFormData.append('zipfile', zipBlobFile)
+                            commitFormData.append('regNo', submitRegNo)
+
+                            try {
+                              const fileUploadResponse = await axios.post(`${ipStore.getState().ip}/commit`, commitFormData)
+
+                              if(fileUploadResponse.data.success){
+                                window.alert(fileUploadResponse.data.message)
+                                setSubmited(true)
+                              }
+                            } catch (error) {
+                                console.error("Commit failed:", error);
+                                window.alert("Commit failed. Check your connection or try again.");
+                            }
+                            
+                            window.electronApi.deleteFileOrFolder(response);
+                            
+                            setCommitLoader(false)
+                }}
+              >
+                {commitLoader ? 'commiting..do not close tab' : 'Commit your code base to teacher' }
+              </button>
+            }
             {submited && 
               <button 
                 className="h-10 bg-orange-600 w-full my-4 rounded-2xl text-black"
