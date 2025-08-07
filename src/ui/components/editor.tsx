@@ -6,10 +6,11 @@ type propsType = {
   theme ?: string,
   value : string,
   ext : string,
-  path : string
+  path : string,
+  read : boolean
 }
 
-const LabXEditor : React.FC<propsType> = ({theme, value, ext, path}) => {
+const LabXEditor : React.FC<propsType> = ({theme, value, ext, path, read}) => {
 
   const [val, setVal] = useState<string>(value)
   const setEditorData = EditorMapsStore((state) => state.setEditorData)
@@ -42,6 +43,7 @@ const LabXEditor : React.FC<propsType> = ({theme, value, ext, path}) => {
             top: 16,
             bottom: 16,
           },
+          readOnly:read
         }}
         onChange={(val) => setVal(val ?? '')}
       />

@@ -4,14 +4,12 @@ import Sidebar from './Sidebar/sideBar';
 import ClientFolderView from './FolderView/clientFolder';
 import type { Client } from '../../types/types';
 import Editor from './Editor/EditorHost';
-
+import { roomNameStore } from '../../stores/roomNameStore';
+import { roomIdStore } from '../../stores/roomIdStore';
 
 const HostDashboard: React.FC = () => {
-
   const [selectedClient, setSelectedClient] = useState<Client>();
-
   const [sidebarVisible, setSidebarVisible] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState(350);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -24,55 +22,41 @@ const HostDashboard: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent) => {
-    const startX = e.clientX;
-    const startWidth = sidebarWidth;
-
-    const onMouseMove = (e: MouseEvent) => {
-      const newWidth = startWidth + (e.clientX - startX);
-      if (newWidth >= 180 && newWidth <= 500) setSidebarWidth(newWidth);
-    };
-
-    const onMouseUp = () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  };
-
   return (
-    <div className="host-dashboard">
-      <div className="header">
-        <div className="logo">
-          <div className="red-dot" />
-          <span>labX</span>
+    <div className="flex flex-col h-screen  text-[#abb2bf]">
+      {/* Header */}
+      <div className="h-[5%] bg-gradient-to-br from-[#21252b] to-[#2c313c] px-5 py-3 flex items-center justify-between">
+        <div className="flex items-center text-white text-3xl font-bold font-[Geostar_Fill]">
+          <span>Orca</span>
         </div>
-        <div className="room-info">
-          Room name: <span>Lab Assessment 1</span> &nbsp;|&nbsp;
-          Room ID: <span>ABC123</span>
+        <div className="text-[22px] ml-[110px]">
+          Room name: <span>{roomNameStore.getState().roomName}</span> &nbsp;|&nbsp;
+          Room ID: <span>{roomIdStore.getState().roomId}</span>
         </div>
-        <div className="controls">
-          <button>Broadcast File</button>
-          <button>Announcements</button>
-          <button>Timer</button>
+        <div className="flex gap-2">
+          <button className="bg-[#3e4451] text-white text-sm px-3 py-1">Broadcast File</button>
+          <button className="bg-[#3e4451] text-white text-sm px-3 py-1">Announcements</button>
+          <button className="bg-[#3e4451] text-white text-sm px-3 py-1">Timer</button>
         </div>
       </div>
 
-      <div className="main-content">
+      {/* Main Layout */}
+      <div className="flex h-[95%]">
         {sidebarVisible && (
-          <div className="sidebar-container" style={{ width: sidebarWidth }}>
-            <Sidebar setClient={setSelectedClient}/>
-            <div className="sidebar-resizer" onMouseDown={handleMouseDown} />
+          <div className="h-full bg-[#2b2b2b]" style={{ width: '15%' }}>
+            <Sidebar setClient={setSelectedClient} />
           </div>
         )}
-        <ClientFolderView client={selectedClient} />
-        <div className='editor-view'> 
+
+        <div className="h-full bg-[#252526]" style={{ width: '25%' }}>
+          <ClientFolderView client={selectedClient} />
+        </div>
+
+        <div className="h-full bg-[#1e1e1e]" style={{ width: '60%' }}>
           <Editor />
         </div>
       </div>
-    </div>  
+    </div>
   );
 };
 

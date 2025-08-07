@@ -46,7 +46,7 @@ const SideBar = ({ onClose }: SideBarProps) => {
         })();
         return <Chat username={'Hii'} />;
       case 'connect':
-        return <Room onJoin={() => { throw new Error('Function not implemented.') }} onHost={() => { throw new Error('Function not implemented.') }} />
+        return <Room />
       default:
         return null;
     }

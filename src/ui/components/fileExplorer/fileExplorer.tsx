@@ -6,6 +6,7 @@ import { BiSend } from "react-icons/bi";
 import { dirStore } from '../../stores/directoryStore';
 import { dirListStore } from '../../stores/dirListStore';
 import { selectedPathStore } from '../../stores/selectedPathStore';
+import { EditorMapsStore } from '../../stores/editorsMap';
 // import { sideBarStore } from '../../stores/sideBarStore';
 
 type FileNode = {
@@ -36,34 +37,34 @@ const FolderExplorer = () => {
 	// const closeSideBar = sideBarStore((state) => state.toggle)
 
 	//Function for fetching files and folders from the directory NOTE : Don't touch this
-const refresh = (customDir?: string) => {
-	const refreshPath = customDir || dir;
+	const refresh = (customDir?: string) => {
+		const refreshPath = customDir || dir;
 
-	fetchFolder(refreshPath)
-		.then((data) => {
-			setTree(data);
-			setFetch(false);
-		})
-		.catch((_err: any) => {
-			// Try refreshing parent instead
-			const parentDir = refreshPath.split('/').slice(0, -1).join('/');
-			if (parentDir && parentDir !== refreshPath) {
-				fetchFolder(parentDir)
-					.then((data) => {
-						setTree(data);
-						setSelectedPath({ val: parentDir, isDir: true });
-						setFetch(false);
-					})
-					.catch((_e: any) => {
-						window.alert("Oops, Error while fetching!");
-						setFetch(false);
-					});
-			} else {
-				window.alert("Oops, Error while fetching!");
+		fetchFolder(refreshPath)
+			.then((data) => {
+				setTree(data);
 				setFetch(false);
-			}
-		});
-};
+			})
+			.catch((_err: any) => {
+				// Try refreshing parent instead
+				const parentDir = refreshPath.split('/').slice(0, -1).join('/');
+				if (parentDir && parentDir !== refreshPath) {
+					fetchFolder(parentDir)
+						.then((data) => {
+							setTree(data);
+							setSelectedPath({ val: parentDir, isDir: true });
+							setFetch(false);
+						})
+						.catch((_e: any) => {
+							window.alert("Oops, Error while fetching!");
+							setFetch(false);
+						});
+				} else {
+					window.alert("Oops, Error while fetching!");
+					setFetch(false);
+				}
+			});
+	};
 
 	
 
@@ -181,7 +182,7 @@ useEffect(() => {
 			style={{ paddingLeft: level + 16 }}
 			className={`
 				group transition-all duration-150 rounded-sm
-				${selectedPath.val === node.path ? 'bg-[#3e4451] text-[#abb2bf]' : ''}
+				${EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? 'bg-[#3e4451] text-[#abb2bf]' : ''}
 				${node.isDir ? 'text-[#61afef]' : 'text-[#e5c07b]'}
 			`}
 		>
