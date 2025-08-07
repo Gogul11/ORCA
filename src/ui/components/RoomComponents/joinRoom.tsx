@@ -4,6 +4,7 @@ import { dirStore } from "../../stores/directoryStore";
 import axios from 'axios'
 import { ipStore } from "../../stores/ipStore";
 import { roomIdStore } from "../../stores/roomIdStore";
+import { regNoStore } from "../../stores/regNoStore";
 
 const JoinRoomForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,6 @@ const JoinRoomForm: React.FC = () => {
   const [submited, setSubmited] = useState(false)
 
 
-  const [submitRegNo, setSubmitRegNo] = useState('')
 
   const handleChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
@@ -46,7 +46,6 @@ const JoinRoomForm: React.FC = () => {
   const isRoomIdValid = formData.roomId.trim() !== "";
   const isIPValid = /^(\d{1,3}\.){3}\d{1,3}$/.test(ip);
   const isPortNoValid = /^\d{1,5}$/.test(portNo) && +portNo <= 65535;
-  const isSubmitRegNoValid = submitRegNo.trim() !== "";
 
   const isFormValid =
     isNameValid && isRegNoValid && isRoomIdValid && isIPValid && isPortNoValid;
@@ -74,7 +73,7 @@ const JoinRoomForm: React.FC = () => {
           setLoader(false)
           setJoined(true)
           roomIdStore.getState().setRoomId(formData.roomId)
-          setSubmitRegNo(formData.regNo)
+          regNoStore.getState().setRegNo(formData.regNo)
       })
 
       soc.on('join-failed', ({message}) => {
@@ -113,7 +112,7 @@ const JoinRoomForm: React.FC = () => {
     setJoined(false)
     setSubmited(false)
     roomIdStore.getState().roomId = ''
-    soc.emit('end-session', {regNo : submitRegNo})
+    soc.emit('end-session', {regNo : regNoStore.getState().regNo})
         setFormData({
       name : "",
       regNo : "",
@@ -121,8 +120,8 @@ const JoinRoomForm: React.FC = () => {
     })
     setIp("")
     setPortNo("")
-    setSubmitRegNo("")
     ipStore.getState().setIp("");
+    regNoStore.getState().setRegNo("");
   }
 
   return (
@@ -180,10 +179,10 @@ const JoinRoomForm: React.FC = () => {
           <div className="mt-4 px-4">
             {!submited && 
               <button 
-                disabled={!isSubmitRegNoValid || commitLoader || submited}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md shadow transition duration-200 mt-4"
                 onClick={async() => {
-                            if (!isSubmitRegNoValid) return;
+                            const submitRegNo = regNoStore.getState().regNo
+                            if (submitRegNo.trim() === '') return;
 
                             setCommitLoader(true)
 
