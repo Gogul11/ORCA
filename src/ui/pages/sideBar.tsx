@@ -9,15 +9,13 @@ import Chat from '../components/Chat';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { selectedPathStore } from '../stores/selectedPathStore';
 import { dirStore } from '../stores/directoryStore';
+import { sideBarStore } from '../stores/sideBarStore';
 
 // Optional: enum for tab keys
 type Tab = 'files' | 'open' | 'chat' | 'connect';
 
-type SideBarProps = {
-  onClose: () => void;
-};
 
-const SideBar = ({ onClose }: SideBarProps) => {
+const SideBar = () => {
   const [activeTab, setActiveTab] = useState<Tab>('files');
   const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
   const globalDir = dirStore((state) => state.setDir)
@@ -57,7 +55,7 @@ const SideBar = ({ onClose }: SideBarProps) => {
 
       
       <button
-        onClick={onClose}
+        onClick={sideBarStore.getState().toggle}
         title="Close Sidebar"
         className="absolute top-2 right-2 text-white hover:text-red-500 transition-all"
       >
