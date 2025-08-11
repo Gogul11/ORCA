@@ -75,6 +75,18 @@ export const startServer = (
             
         })
 
+        socket.on('refresh-students', () => {
+            socket.to('admin-room').emit('joined-studs', 
+                    Array.from(joinedStudentsList.entries())
+                    .map(([regNo , student]) => ({
+                        regNo : regNo,
+                        name : student.name,
+                        startTime : student.startTime,
+                        endTime : student.endTime,
+                        status : student.status
+            })))
+        })
+
         //get student join
         socket.on('get-student-folder', (regNo) => {
             console.log('get-student-folder', regNo);
