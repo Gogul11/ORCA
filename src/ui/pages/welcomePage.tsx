@@ -6,15 +6,45 @@ import {
 
 } from 'react-icons/fi';
 import { LiaUserFriendsSolid } from "react-icons/lia";
+import { dirStore } from '../stores/directoryStore';
+import { selectedPathStore } from '../stores/selectedPathStore';
+import { sideBarStore } from '../stores/sideBarStore';
 
 interface WelcomeScreenProps {}
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
   const quickActions = [
-    { icon: FiFile, label: 'New file'},
-    { icon: FiFolder, label: 'Open folder'},
-    { icon: FiServer, label: 'Host Room'},
-    { icon: LiaUserFriendsSolid, label: 'Join Room'},
+    { 
+      icon: FiFolder, 
+      label: 'Open folder', 
+      action : async () => {
+          window.electronApi.openDir().then((d) => {
+            if (d === '')
+              return null;
+            dirStore.getState().setDir(d)
+            dirStore.getState().setInitialFetch()
+            selectedPathStore.getState().setSelectedPath({ val: d, isDir: true })
+          })
+          !sideBarStore.getState().isOpen && sideBarStore.getState().toggle()
+          sideBarStore.getState().setAcitveTab('files')
+        }
+    },
+    { 
+      icon: FiServer, 
+      label: 'Host Room', 
+      action : () => {
+        !sideBarStore.getState().isOpen && sideBarStore.getState().toggle()
+        sideBarStore.getState().setAcitveTab('connect')
+      }
+    },
+    { 
+      icon: LiaUserFriendsSolid, 
+      label: 'Join Room',
+      action : () => {
+        !sideBarStore.getState().isOpen && sideBarStore.getState().toggle()
+        sideBarStore.getState().setAcitveTab('connect')
+      }
+    },
   ];
 
   return (
@@ -41,6 +71,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
                 <button
                   key={index}
                   className="w-full flex items-center justify-between p-3 rounded-md hover:bg-[#2d2d30] transition-colors text-left group"
+                  onClick={action.action}
                 >
                   <div className="flex items-center space-x-3">
                     <action.icon className="w-4 h-4 text-[#cccccc]" />

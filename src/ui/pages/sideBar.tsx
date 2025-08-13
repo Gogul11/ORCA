@@ -13,13 +13,10 @@ import { sideBarStore } from '../stores/sideBarStore';
 import  Download from '../components/Download'
 import { FaDownload } from "react-icons/fa";
 
-// Optional: enum for tab keys
-type Tab = 'files' | 'open' | 'chat' | 'connect' | 'download';
-
-
-
 const SideBar = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('files');
+
+  const activeTab = sideBarStore((state) => state.activeTab)
+  const setActiveTab = sideBarStore((state) => state.setAcitveTab)
   const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
   const globalDir = dirStore((state) => state.setDir)
 
