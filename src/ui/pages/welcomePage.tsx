@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FiFile,
   FiFolder,
   FiServer,
 
@@ -34,7 +33,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
       label: 'Host Room', 
       action : () => {
         !sideBarStore.getState().isOpen && sideBarStore.getState().toggle()
-        sideBarStore.getState().setAcitveTab('connect')
+        sideBarStore.getState().setAcitveTab('connectHost')
       }
     },
     { 
@@ -42,7 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
       label: 'Join Room',
       action : () => {
         !sideBarStore.getState().isOpen && sideBarStore.getState().toggle()
-        sideBarStore.getState().setAcitveTab('connect')
+        sideBarStore.getState().setAcitveTab('connectClient')
       }
     },
   ];

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BsCollection } from "react-icons/bs";
 import { MdOutlineFileOpen } from "react-icons/md";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
@@ -39,7 +38,11 @@ const SideBar = () => {
       case 'chat':
         return <Chat />;
       case 'connect':
-        return <Room />
+        return <Room tab="client"/>
+      case 'connectClient':
+        return <Room tab="client"/>
+      case 'connectHost':
+        return <Room tab="host"/>
       case 'download':
         return <Download/>
       default:
