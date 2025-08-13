@@ -40,7 +40,7 @@ const SideBar = () => {
         })();
         return null;
       case 'chat':
-        return <Chat username={'Hii'} />;
+        return <Chat />;
       case 'connect':
         return <Room />
       case 'download':

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { ipStore } from "../stores/ipStore";
 

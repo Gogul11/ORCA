@@ -109,6 +109,11 @@ export const startServer = (
             }
         });
 
+        //Chat
+        socket.on("chatMessage", ({ roll, message }) => {
+            socket.broadcast.emit("messageReply", message, roll);
+        });
+
 
         //end-student
         socket.on('end-session', ({regNo}) => {
