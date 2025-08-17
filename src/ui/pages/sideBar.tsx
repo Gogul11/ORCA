@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BsCollection } from "react-icons/bs";
 import { MdOutlineFileOpen } from "react-icons/md";
 import { BsFillChatRightDotsFill } from "react-icons/bs";
@@ -9,16 +8,15 @@ import Chat from '../components/Chat';
 import FileExplorer from '../components/fileExplorer/fileExplorer';
 import { selectedPathStore } from '../stores/selectedPathStore';
 import { dirStore } from '../stores/directoryStore';
+import { sideBarStore } from '../stores/sideBarStore';
+import  Download from '../components/Download'
+import { FaDownload } from "react-icons/fa";
+import Timer from "../components/Time";
 
-// Optional: enum for tab keys
-type Tab = 'files' | 'open' | 'chat' | 'connect';
+const SideBar = () => {
 
-type SideBarProps = {
-  onClose: () => void;
-};
-
-const SideBar = ({ onClose }: SideBarProps) => {
-  const [activeTab, setActiveTab] = useState<Tab>('files');
+  const activeTab = sideBarStore((state) => state.activeTab)
+  const setActiveTab = sideBarStore((state) => state.setAcitveTab)
   const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
   const globalDir = dirStore((state) => state.setDir)
 
@@ -39,14 +37,16 @@ const SideBar = ({ onClose }: SideBarProps) => {
         })();
         return null;
       case 'chat':
-        (async () => {
-          const response = await window.electronApi.submitWorkSpace(dirStore.getState().dir, "demoTest")
-          if (response) console.log("success")
-          else console.log("fail")
-        })();
-        return <Chat username={'Hii'} />;
+        return <Chat />;
       case 'connect':
-        return <Room />
+        return <Room tab="client"/>
+      case 'connectClient':
+        return <Room tab="client"/>
+      case 'connectHost':
+        return <Room tab="host"/>
+      case 'download':
+        return <Download/>
+        // return <Timer/>
       default:
         return null;
     }
@@ -57,7 +57,7 @@ const SideBar = ({ onClose }: SideBarProps) => {
 
       
       <button
-        onClick={onClose}
+        onClick={sideBarStore.getState().toggle}
         title="Close Sidebar"
         className="absolute top-2 right-2 text-white hover:text-red-500 transition-all"
       >
@@ -82,6 +82,9 @@ const SideBar = ({ onClose }: SideBarProps) => {
         </button>
         <button onClick={() => setActiveTab('connect')}>
           <VscVmConnect size={28} className={activeTab === 'connect' ? 'text-yellow-300' : ''} />
+        </button>
+        <button onClick={() => setActiveTab('download')}>
+          <FaDownload size={28} className={activeTab === 'download' ? 'text-yellow-300' : ''} />
         </button>
       </div>
     </div>

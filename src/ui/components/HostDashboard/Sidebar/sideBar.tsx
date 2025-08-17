@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './SideBar.css';
 import { io } from 'socket.io-client';
 import { ipStore } from '../../../stores/ipStore';
+import { LuRefreshCcw } from "react-icons/lu";
 
 interface Client {
   id: string;
@@ -88,10 +89,21 @@ const Sidebar: React.FC<sideBarProps> = ({setClient}) => {
     console.log('hi this is side bar onclick')
   }
 
-
+  const handleRefresh = () => {
+    const soc = io(ipStore.getState().ip);
+    console.log('refreshed')
+    soc.emit('refresh-students')
+  }
 
   return (
     <div className="sidebar">
+      <div className='w-full flex justify-start items-center px-4'>
+        <LuRefreshCcw 
+          className='hover:cursor-pointer hover:text-blue-600'
+          size={20} 
+          onClick={handleRefresh}
+        />
+      </div>
       <div className="w-full px-4 py-2 rounded-md mb-2 flex flex-col gap-1 text-sm text-gray-700">
         <div className="flex justify-between">
           <span className="font-medium text-blue-500">Connected Students:</span>
