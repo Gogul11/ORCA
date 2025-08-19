@@ -11,11 +11,13 @@ import { ModifiedFileStore } from '../stores/modifiedFileStore';
 import SideBar from './sideBar';
 import { welcomePageStore } from '../stores/welcomePageStore';
 import { useSocket } from '../utils/soc';
+import { GrInProgress } from "react-icons/gr";
+
 
 const EditorPage = () => {
 
-   useSocket(); 
 
+    useSocket(); 
     
     //stores
     const toogleSideBar = sideBarStore((state) => state.toggle)
@@ -108,14 +110,25 @@ const EditorPage = () => {
                             </div>
                         ))
                 )}
-                <div className='h-[4%] flex w-full absolute bottom-0 border'>
+                <div className='h-[4%] flex w-full absolute bottom-0 border bg-blue-950'>
                     <div 
                       className='w-[6%] bg-indigo-600 h-full hide-scrollbar cursor-pointer flex justify-center items-center rounded-md'
                       onClick={toogleSideBar}
                     >
                         <GiDolphin size={30}/>
                     </div>
-                    <div className='w-[96%]  h-full hide-scrollbar '>
+                    <div className='w-[2%] mx-2 flex justify-center items-center hover:cursor-pointer'>
+                        <button 
+                            onClick={() => {
+                                    sideBarStore.getState().setAcitveTab('progress')
+                                    sideBarStore.getState().toggle()
+                                }}
+                            className={'hover:cursor-pointer text-white'}
+                        >
+                            <GrInProgress size={20} />
+                        </button>
+                    </div>
+                    <div className='w-[94%]  h-full hide-scrollbar '>
                          <OpenedEditors editors={openedEditors}/> 
                     </div>
                 </div>

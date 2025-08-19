@@ -11,7 +11,8 @@ import { dirStore } from '../stores/directoryStore';
 import { sideBarStore } from '../stores/sideBarStore';
 import  Download from '../components/Download'
 import { FaDownload } from "react-icons/fa";
-import Timer from "../components/Time";
+import Timer from "../components/Timer";
+import TodoList from "../components/Todo";
 
 const SideBar = () => {
 
@@ -46,7 +47,9 @@ const SideBar = () => {
         return <Room tab="host"/>
       case 'download':
         return <Download/>
+      case 'progress':
         // return <Timer/>
+        return <TodoList/>
       default:
         return null;
     }
