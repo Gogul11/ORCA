@@ -6,7 +6,7 @@ import { TfiTimer } from "react-icons/tfi";
 import { sideBarStore } from "../stores/sideBarStore";
 import { LuListTodo } from "react-icons/lu";
 
-type Tab = 'files' | 'open' | 'chat' | 'connect' | 'download' | 'connectClient' | 'connectHost' | 'timer' | 'todo';
+type Tab = 'files' | 'open' | 'chat' | 'connect' | 'download' | 'connectClient' | 'connectHost' | 'timer' | 'todo' | ' ';
 
 const BottomBar = () => {
   const activeTab = sideBarStore((state) => state.activeTab);
@@ -16,6 +16,10 @@ const BottomBar = () => {
 
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
+    if(activeTab === tab){
+      toggle()
+      setActiveTab(' ')
+    } 
     if (!isOpen) toggle();
   };
 
@@ -25,8 +29,8 @@ const BottomBar = () => {
         <BsCollection size={24} className={activeTab === "files" ? "text-yellow-300" : ""} />
       </button>
 
-      <button className="cursor-pointer" onClick={() => handleTabClick("connect")}>
-        <VscVmConnect size={24} className={activeTab === "connect" ? "text-yellow-300" : ""} />
+      <button className="cursor-pointer" onClick={() => handleTabClick(activeTab !== ' ' ? activeTab : "connect")}>
+        <VscVmConnect size={24} className={activeTab === "connect" || activeTab === "connectClient" || activeTab === "connectHost" ? "text-yellow-300" : ""} />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("chat")}>

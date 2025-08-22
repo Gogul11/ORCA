@@ -56,7 +56,10 @@ const SideBar = () => {
 
       
       <button
-        onClick={sideBarStore.getState().toggle}
+        onClick={() => {
+          sideBarStore.getState().toggle()
+          sideBarStore.getState().setAcitveTab(' ')
+        }}
         title="Close Sidebar"
         className="absolute top-2 right-2 text-white hover:text-red-500 transition-all"
       >
