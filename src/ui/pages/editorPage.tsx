@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import LabXEditor from '../components/editor';
-import OpenedEditors from '../components/opened/openedEditors';
+import OpenedEditors from '../components/openedEditors';
 import WelcomeScreen from './welcomePage';
 import { sideBarStore } from '../stores/sideBarStore';
 import { currentPathStore } from '../stores/currentPathStore';

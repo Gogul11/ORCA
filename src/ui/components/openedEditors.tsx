@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { EditorMapsStore } from '../../stores/editorsMap';
-import { ActivePathStore } from '../../stores/activePathStore';
-import { ModifiedFileStore } from '../../stores/modifiedFileStore';
+import { EditorMapsStore } from '../stores/editorsMap';
+import { ActivePathStore } from '../stores/activePathStore';
+import { ModifiedFileStore } from '../stores/modifiedFileStore';
 
 
 type openedEditorsObjectType = {
