@@ -1,6 +1,6 @@
 // hooks/useSocket.ts
 import { useEffect, useRef } from "react";
-import { io, Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { ipStore } from "../stores/ipStore";
 import { regNoStore } from "../stores/regNoStore";
 import { ChatStore } from "../stores/chatStore";

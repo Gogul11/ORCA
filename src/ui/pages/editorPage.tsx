@@ -17,7 +17,7 @@ const EditorPage = () => {
     useSocket(); 
     
     //stores
-    const toogleSideBar = sideBarStore((state) => state.toggle)
+    // const toogleSideBar = sideBarStore((state) => state.toggle)
     const isSideBarOpen = sideBarStore((state) => state.isOpen)
 
     //selectedPath store 

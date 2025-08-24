@@ -176,7 +176,7 @@ export const startServer = (
         
         
 
-        socket.on('disconnect', (reason) => {
+        socket.on('disconnect', (_reason) => {
             const regNo = socket.data.regNo;
             console.log(regNo)
             if(!regNo) return;
