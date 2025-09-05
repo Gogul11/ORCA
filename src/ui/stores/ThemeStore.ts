@@ -8,6 +8,6 @@ interface props {
 }
 
 export const colorThemeStore = create<props>((set) => ({
-    theme : "light",
+    theme : "dark",
     setTheme : (t : themeType) => set({theme : t})
 }))

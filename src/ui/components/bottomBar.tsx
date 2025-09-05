@@ -5,6 +5,8 @@ import { FaDownload } from "react-icons/fa";
 import { TfiTimer } from "react-icons/tfi";
 import { sideBarStore } from "../stores/sideBarStore";
 import { LuListTodo } from "react-icons/lu";
+import { colorThemeStore } from "../stores/ThemeStore";
+import { darkTheme, lightTheme } from "../utils/colors";
 
 type Tab = 'files' | 'open' | 'chat' | 'connect' | 'download' | 'connectClient' | 'connectHost' | 'timer' | 'todo' | ' ';
 
@@ -13,7 +15,8 @@ const BottomBar = () => {
   const setActiveTab = sideBarStore((state) => state.setAcitveTab);
   const isOpen = sideBarStore((state) => state.isOpen);
   const toggle = sideBarStore((state) => state.toggle);
-
+  const theme = colorThemeStore((state) => state.theme)
+  
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
     if(activeTab === tab){
@@ -24,29 +27,69 @@ const BottomBar = () => {
   };
 
   return (
-    <div className="w-full flex justify-evenly h-full bg-indigo-600">
+    <div 
+      className="w-full flex justify-evenly h-full"
+      style={{backgroundColor : theme === "dark" ?  darkTheme.bottomTab.bg : lightTheme.bottomTab.bg}}
+    >
       <button className="cursor-pointer" onClick={() => handleTabClick("files")}>
-        <BsCollection size={24} className={activeTab === "files" ? "text-yellow-300" : ""} />
+        <BsCollection 
+          size={24} 
+          style={{
+            color : activeTab === "files" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }}
+        />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("connect")}>
-        <VscVmConnect size={24} className={activeTab === "connect" || activeTab === "connectClient" || activeTab === "connectHost" ? "text-yellow-300" : ""} />
+        <VscVmConnect 
+          size={24} 
+          style={{
+            color : activeTab === "connect" || activeTab === "connectClient" || activeTab === "connectHost" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) :
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }} />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("chat")}>
-        <BsFillChatRightDotsFill size={24} className={activeTab === "chat" ? "text-yellow-300" : ""} />
+        <BsFillChatRightDotsFill 
+          size={24} 
+          style={{
+            color : activeTab === "chat" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) :
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }} />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("download")}>
-        <FaDownload size={24} className={activeTab === "download" ? "text-yellow-300" : ""} />
+        <FaDownload 
+          size={24} 
+          style={{
+            color : activeTab === "download" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }} />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("timer")}>
-        <TfiTimer size={24} className={activeTab === "timer" ? "text-yellow-300" : ""} />
+        <TfiTimer 
+          size={24} 
+          style={{
+            color : activeTab === "timer" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }} />
       </button>
 
       <button className="cursor-pointer" onClick={() => handleTabClick("todo")}>
-        <LuListTodo size={24} className={activeTab === "todo" ? "text-yellow-300" : ""} />
+        <LuListTodo 
+          size={24} 
+          style={{
+            color : activeTab === "todo" ? 
+                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
+                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                  }} />
       </button>
     </div>
   );
