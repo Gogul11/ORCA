@@ -103,7 +103,7 @@ const EditorPage = () => {
                         Object.entries(openedEditors).map(([path, vals]) => (
                             vals.isOpen && 
                             <div className={`h-[96%] ${isSideBarOpen ? 'w-[80%]' : 'w-full'}`}>
-                                <LabXEditor theme="vs-dark"
+                                <LabXEditor
                                     key={path} 
                                     value={vals.data}
                                     ext={vals.ext}
@@ -113,7 +113,7 @@ const EditorPage = () => {
                             </div>
                         ))
                 )}
-                <div className='h-[4%] flex w-full absolute bottom-0 border bg-blue-950'>
+                <div className='h-[4%] flex w-full absolute bottom-0 border'>
                     <div className='w-[20%]'>
                         <BottomBar/>
                     </div>

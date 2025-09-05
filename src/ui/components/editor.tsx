@@ -2,19 +2,20 @@ import { Editor } from '@monaco-editor/react';
 import { useEffect, useState } from 'react';
 import { EditorMapsStore } from '../stores/editorsMap';
 import Loader from './loader';
+import { colorThemeStore } from '../stores/ThemeStore';
 
 type propsType = {
-  theme ?: string,
   value : string,
   ext : string,
   path : string,
   read : boolean
 }
 
-const LabXEditor : React.FC<propsType> = ({theme, value, ext, path, read}) => {
+const LabXEditor : React.FC<propsType> = ({value, ext, path, read}) => {
 
   const [val, setVal] = useState<string>(value)
   const setEditorData = EditorMapsStore((state) => state.setEditorData)
+  const theme = colorThemeStore((state) => state.theme)
 
   useEffect(() => {
     setVal(val)
@@ -35,7 +36,7 @@ const LabXEditor : React.FC<propsType> = ({theme, value, ext, path, read}) => {
         width="100%"
         language={ext}
         value={value}
-        theme={theme}
+        theme={theme === "dark" ? "vs-dark" : "vs-light"}
         options={{
           fontSize: 14,
           minimap: { enabled: false },

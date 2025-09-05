@@ -10,6 +10,13 @@ const darkTheme = {
         bg : '#007acccc',
         iconActive : '#cccccc',
         iconNotActive : '#000000'
+    },
+    bottomBar : {
+        bg : '#007acccc',
+        componentBg : '#00000080',
+        text : '#cccccc',
+        componentActive : '#000000e6',
+        crossIcon : '#ffffff',
     }
 }
 
@@ -25,6 +32,13 @@ const lightTheme = {
         bg : '#007acccc',
         iconActive : '#000000',
         iconNotActive : '#cccccc'
+    },
+    bottomBar : {
+        bg : '#007acccc',
+        componentBg : '#ffffff99',
+        text : '#000000',
+        componentActive : '#ffffffe6',
+        crossIcon : '#000000',
     }
 }
 
