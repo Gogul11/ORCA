@@ -8,6 +8,8 @@ import { sideBarStore } from '../stores/sideBarStore';
 import  Download from '../components/Download'
 import Timer from "../components/Timer";
 import TodoList from "../components/Todo";
+import { colorThemeStore } from "../stores/ThemeStore";
+import { darkTheme, lightTheme } from "../utils/colors";
 
 const SideBar = () => {
 
@@ -15,6 +17,7 @@ const SideBar = () => {
   const setActiveTab = sideBarStore((state) => state.setAcitveTab)
   const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
   const globalDir = dirStore((state) => state.setDir)
+  const theme = colorThemeStore((state) => state.theme)
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -67,7 +70,10 @@ const SideBar = () => {
       </button>
 
       {/* Dynamic content area */}
-      <div className="h-full w-full overflow-y-auto ">
+      <div 
+        className="h-full w-full overflow-y-auto"
+		    style={{backgroundColor : theme === "dark" ? darkTheme.sideBar.bg : lightTheme.sideBar.bg}}
+      >
         {renderTabContent()}
       </div>
     </div>

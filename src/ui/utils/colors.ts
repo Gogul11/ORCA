@@ -18,6 +18,9 @@ const darkTheme = {
         componentActive : '#000000e6',
         crossIcon : '#ffffff',
     },
+    sideBar : {
+        bg : '#ffffff1a'
+    },
     fileExplorer : {
         bg : '#ffffff1a',
         beforeOpen : {
@@ -71,6 +74,9 @@ const lightTheme = {
         text : '#000000',
         componentActive : '#ffffffe6',
         crossIcon : '#000000',
+    },
+    sideBar : {
+        bg : '#fafafa36'
     },
     fileExplorer : {
         bg : '#fafafae6',

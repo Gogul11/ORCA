@@ -243,7 +243,6 @@ useEffect(() => {
 return (
 	<div 
 		className="h-full w-full"
-		style={{backgroundColor : theme === "dark" ? darkTheme.fileExplorer.bg : lightTheme.fileExplorer.bg}}
 	>
 
 		{/* TO open a folder */}
