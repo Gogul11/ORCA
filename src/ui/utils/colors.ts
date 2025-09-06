@@ -19,7 +19,7 @@ const darkTheme = {
         crossIcon : '#ffffff',
     },
     fileExplorer : {
-        bg : '#00000066',
+        bg : '#ffffff1a',
         beforeOpen : {
             pText : '#cccccc',
             button : {
