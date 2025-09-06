@@ -4,6 +4,8 @@ import { currentPathStore } from "../../stores/currentPathStore";
 import { ActivePathStore } from "../../stores/activePathStore";
 import { ModifiedFileStore } from "../../stores/modifiedFileStore";
 import { welcomePageStore } from "../../stores/welcomePageStore";
+import { darkTheme, lightTheme } from "../../utils/colors";
+import { colorThemeStore } from "../../stores/ThemeStore";
 
 type FileNode = {
     name: string;
@@ -17,9 +19,10 @@ const Content = (props : FileNode) => {
 
     const selectedPath = currentPathStore((state) => state.setPath)
     const activeStore = ActivePathStore((state) => state.setPath)
+    const theme = colorThemeStore((state) => state.theme)
 
     return (
-        <div className='hover:bg-[#abb2bf]/10 cursor-pointer w-full' 
+        <div className='cursor-pointer w-full' 
             onClick={() => {
                     props.select({val : props.path, isDir : props.isDir})
                     !props.isDir && selectedPath(props.path)
@@ -36,10 +39,17 @@ const Content = (props : FileNode) => {
                 className="flex w-[80%] min-h-6 mx-2 gap-2 items-center py-2"
                 onClick={props.toogle}
             >
-                <div className="flex-shrink-0">
+                <div 
+                    className="flex-shrink-0"
+                    style={{
+                        color : props.isDir ? 
+                                (theme === "dark" ? darkTheme.fileExplorer.afterOpen.files.icons.folder : lightTheme.fileExplorer.afterOpen.files.icons.folder) :
+                                (theme === "dark" ? darkTheme.fileExplorer.afterOpen.files.icons.file : lightTheme.fileExplorer.afterOpen.files.icons.file)
+                    }}
+                >
                     {props.isDir ? <FaFolderClosed size={20}/> : <FaFileCode size={20}/>} 
                 </div>
-                <span className={props.isDir ? "text-[#c678dd]" : "text-[#98c379]"}>{props.name}</span>
+                <span>{props.name}</span>
             </div>        
         </div>
     );

@@ -67,7 +67,7 @@ const SideBar = () => {
       </button>
 
       {/* Dynamic content area */}
-      <div className="bg-[#1e1e1e] h-full w-full overflow-y-auto ">
+      <div className="h-full w-full overflow-y-auto ">
         {renderTabContent()}
       </div>
     </div>

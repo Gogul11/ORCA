@@ -17,6 +17,38 @@ const darkTheme = {
         text : '#cccccc',
         componentActive : '#000000e6',
         crossIcon : '#ffffff',
+    },
+    fileExplorer : {
+        bg : '#00000066',
+        beforeOpen : {
+            pText : '#cccccc',
+            button : {
+                text : '#ffffff',
+                bg : '#007acc80'
+            }
+        },
+        afterOpen : {
+            icons : {
+                color : '#0098ff',
+                hover : '#007acc'
+            },
+            input : {
+                border : '#007acc',
+                bg : '#ffffff33',
+                text : '#cccccc'
+            },
+            files : {
+                active : '#ffffff33',
+                hover : '#ffffff1a',
+                item : {
+                    text : '#cccccc'
+                },
+                icons : {
+                    folder : '#0098ff',
+                    file : '#007acc'
+                }
+            }
+        }
     }
 }
 
@@ -39,6 +71,38 @@ const lightTheme = {
         text : '#000000',
         componentActive : '#ffffffe6',
         crossIcon : '#000000',
+    },
+    fileExplorer : {
+        bg : '#fafafae6',
+        beforeOpen : {
+            pText : '#ffffff',
+            button : {
+                text : '#ffffff',
+                bg : '#007acccc'
+            }
+        },
+        afterOpen : {
+            icons : {
+                color : '#007acc',
+                hover : '#0098ff'
+            },
+            input : {
+                border : '#0098ff',
+                bg : '#00000033',
+                text : '#000000'
+            },
+            files : {
+                active : '#00000033',
+                hover : '#0000001a',
+                item : {
+                    text : '#000000cc'
+                },
+                icons : {
+                    folder : '#0098ff',
+                    file : '#007acc'
+                }
+            }
+        }
     }
 }
 

@@ -4,6 +4,7 @@ import HostDashboard from './components/HostDashboard/hostDashboard';
 import { useSocket } from './utils/soc';
 import { useEffect } from 'react';
 import { sideBarStore } from './stores/sideBarStore';
+import { colorThemeStore } from './stores/ThemeStore';
 
 function AppContent() {
 
@@ -24,6 +25,15 @@ function AppContent() {
       console.log(sideBarStore.getState().isOpen)
     })
   }, [])
+
+  useEffect(() => {
+    if(colorThemeStore.getState().theme === "dark"){
+      document.body.style.backgroundColor = 'black'
+    } 
+    else{
+      document.body.style.backgroundColor = '#fafafa'
+    }
+  })
 
   return (
     <>
