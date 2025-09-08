@@ -58,6 +58,10 @@ const darkTheme = {
         buttonActive : '#007acc',
         buttonNotActive : '#0098ff',
         text : '#ffffff'
+    },
+    joinRoom : {
+        label : '#ffffff',
+        text : '#cccccc',
     }
 }
 

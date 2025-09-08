@@ -10,7 +10,7 @@ import { selectedPathStore } from '../stores/selectedPathStore';
 import { sideBarStore } from '../stores/sideBarStore';
 import { GiDolphin } from 'react-icons/gi';
 import { darkTheme, lightTheme } from '../utils/colors';
-import { colorThemeStore } from '../stores/ThemeStore';
+import { currentStyle } from '../utils/styleChooser';
 
 interface WelcomeScreenProps {}
 
@@ -48,12 +48,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
       }
     },
   ];
-  const theme = colorThemeStore((state) => state.theme)
 
   return (
     <div 
       className="min-h-screen flex"
-      style={{backgroundColor : theme === "dark" ? darkTheme.welcome.bg : lightTheme.welcome.bg}}
+      style={{backgroundColor : currentStyle(darkTheme.welcome.bg, lightTheme.welcome.bg)}}
     >
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
@@ -61,14 +60,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
         <div className="mb-12">
           <div 
             className="text-8xl font-bold mb-4 tracking-wider flex gap-4"
-            style={{color : theme === "dark" ? darkTheme.welcome.link : lightTheme.welcome.link}}
+            style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
           >
             ORCA
             <GiDolphin className='animate-pulse'/>
           </div>
           <div 
             className="text-center text-lg"
-            style={{color : theme === "dark" ? darkTheme.welcome.pText2 : lightTheme.welcome.pText2}}
+            style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
           >
             Coding made powerful
           </div>
@@ -80,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
           <div className="">
             <h2 
               className="text-xl font-semibold mb-6 text-center"
-              style={{color : theme === "dark" ? darkTheme.welcome.pText1 : lightTheme.welcome.pText1}}
+              style={{color : currentStyle(darkTheme.welcome.pText1, lightTheme.welcome.pText1)}}
             >Start</h2>
             <div className="space-y-2">
               {quickActions.map((action, index) => (
@@ -92,10 +91,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
                   <div className="flex items-center space-x-3 hover:cursor-pointer">
                     <action.icon 
                       className="w-4 h-4" 
-                      style={{color : theme === "dark" ? darkTheme.welcome.pText2 : lightTheme.welcome.pText2}}
+                      style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
                     />
                     <span
-                      style={{color : theme === "dark" ? darkTheme.welcome.pText2 : lightTheme.welcome.pText2}}
+                      style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
                     >
                       {action.label}
                     </span>
@@ -110,33 +109,33 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
         <div className="mt-16 flex flex-wrap justify-center gap-6 text-sm">
           <button 
               className="transition-colors hover:cursor-pointer"
-              style={{ color: darkTheme.welcome.link }}
-              onMouseEnter={e => e.currentTarget.style.color = darkTheme.welcome.bLink}
-              onMouseLeave={e => e.currentTarget.style.color = darkTheme.welcome.link}
+              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
           >
             Show release notes
           </button>
           <button   
               className="transition-colors hover:cursor-pointer"
-              style={{ color: darkTheme.welcome.link }}
-              onMouseEnter={e => e.currentTarget.style.color = darkTheme.welcome.bLink}
-              onMouseLeave={e => e.currentTarget.style.color = darkTheme.welcome.link}
+              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
           >
             Privacy statement
           </button>
           <button
               className="transition-colors hover:cursor-pointer"
-              style={{ color: darkTheme.welcome.link }}
-              onMouseEnter={e => e.currentTarget.style.color = darkTheme.welcome.bLink}
-              onMouseLeave={e => e.currentTarget.style.color = darkTheme.welcome.link}
+              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
           >
             License
           </button>
            <button
               className="transition-colors hover:cursor-pointer"
-              style={{ color: darkTheme.welcome.link }}
-              onMouseEnter={e => e.currentTarget.style.color = darkTheme.welcome.bLink}
-              onMouseLeave={e => e.currentTarget.style.color = darkTheme.welcome.link}
+              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
            >
             About Us
           </button>
