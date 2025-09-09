@@ -91,10 +91,6 @@ const EditorPage = () => {
     return (
         <div className="flex h-screen w-screen">
 
-
-                <div className={`h-[96%] ${isSideBarOpen && 'w-[20%]'}`}>
-                    {isSideBarOpen && <SideBar />}
-                </div>
                 {Object.entries(openedEditors).length === 0 ? 
                         <div className={`h-[96%] ${isSideBarOpen ? 'w-[80%]' : 'w-full'}`}>
                             <WelcomeScreen/>
@@ -113,12 +109,15 @@ const EditorPage = () => {
                             </div>
                         ))
                 )}
+                <div className={`h-[96%] ${isSideBarOpen && 'w-[20%]'}`}>
+                    {isSideBarOpen && <SideBar />}
+                </div>
                 <div className='h-[4%] flex w-full absolute bottom-0 border'>
-                    <div className='w-[20%]'>
-                        <BottomBar/>
-                    </div>
                     <div className='w-[80%] h-full hide-scrollbar '>
                          <OpenedEditors editors={openedEditors}/> 
+                    </div>
+                    <div className='w-[20%]'>
+                        <BottomBar/>
                     </div>
                 </div>
         </div>

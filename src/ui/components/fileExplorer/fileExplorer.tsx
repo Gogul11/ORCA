@@ -6,11 +6,9 @@ import { BiSend } from "react-icons/bi";
 import { dirStore } from '../../stores/directoryStore';
 import { dirListStore } from '../../stores/dirListStore';
 import { selectedPathStore } from '../../stores/selectedPathStore';
-import { EditorMapsStore } from '../../stores/editorsMap';
 import Loader from '../loader';
 import { sideBarStore } from '../../stores/sideBarStore';
-import { colorThemeStore } from '../../stores/ThemeStore';
-import { darkTheme, lightTheme } from '../../utils/colors';
+import { currentStyle } from '../../utils/styleChooser';
 // import { sideBarStore } from '../../stores/sideBarStore';
 
 type FileNode = {
@@ -39,7 +37,6 @@ const FolderExplorer = () => {
 	const selectedPath = selectedPathStore((state) => state.selectedPath)
 	const setSelectedPath = selectedPathStore((state) => state.setSelectedPath)
 	// const closeSideBar = sideBarStore((state) => state.toggle)
-	const theme = colorThemeStore((state) => state.theme)
 
 	//Function for fetching files and folders from the directory NOTE : Don't touch this
 	const refresh = (customDir?: string) => {
@@ -185,20 +182,10 @@ useEffect(() => {
 		<div
 			key={node.path}
 			style={{ 
-				paddingLeft: level + 16,
-				backgroundColor : theme === "dark" ?
-								 (EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? darkTheme.fileExplorer.afterOpen.files.active :  ''):
-								 (EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? lightTheme.fileExplorer.afterOpen.files.active : ''),
-				color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.files.item.text : lightTheme.fileExplorer.afterOpen.files.item.text
+				paddingLeft: level + 5,
+				color : currentStyle('fileExplorer.afterOpen.files.item.text')
 			}}
-			onMouseEnter={e => e.currentTarget.style.backgroundColor = theme === "dark" ?
-								 darkTheme.fileExplorer.afterOpen.files.hover:
-								 lightTheme.fileExplorer.afterOpen.files.hover 
-						}
-			onMouseLeave={e => e.currentTarget.style.backgroundColor = theme === "dark" ?
-								 (EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? darkTheme.fileExplorer.afterOpen.files.active :  ''):
-								 (EditorMapsStore.getState().openedEditors[node.path]?.isOpen ? lightTheme.fileExplorer.afterOpen.files.active : '')
-						}
+			
 			className="group transition-all duration-150"
 		>
 			<Content 
@@ -251,8 +238,8 @@ return (
 				<button
 					className='w-[70%] h-10 rounded-sm cursor-pointer'
 					style={{
-						color : theme === "dark" ? darkTheme.fileExplorer.beforeOpen.button.text : lightTheme.fileExplorer.beforeOpen.button.text,
-						backgroundColor : theme === "dark" ? darkTheme.fileExplorer.beforeOpen.button.bg : lightTheme.fileExplorer.beforeOpen.button.bg
+						color : currentStyle('fileExplorer.beforeOpen.button.text'),
+						backgroundColor : currentStyle('fileExplorer.beforeOpen.button.bg')
 					}}
 					onClick={() => {
 						window.electronApi.openDir().then((d) => {
@@ -281,9 +268,9 @@ return (
 						<VscFolderOpened
 							size={22}
 							className='cursor-pointer'
-							style={{color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}}
-							onMouseEnter={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.hover : lightTheme.fileExplorer.afterOpen.icons.hover}
-							onMouseLeave={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}
+							style={{color : currentStyle('fileExplorer.afterOpen.icons.color')}}
+							onMouseEnter={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.hover')}
+							onMouseLeave={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.color')}
 							onClick={() => {
 								sideBarStore.getState().setAcitveTab('open')
 							}}
@@ -291,9 +278,9 @@ return (
 						<VscNewFile 
 							size={22} 
 							className='cursor-pointer'
-							style={{color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}}
-							onMouseEnter={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.hover : lightTheme.fileExplorer.afterOpen.icons.hover}
-							onMouseLeave={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}
+							style={{color : currentStyle('fileExplorer.afterOpen.icons.color')}}
+							onMouseEnter={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.hover')}
+							onMouseLeave={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.color')}
 							onClick={() => {
 								setInput({...input, type : 'File'})
 								setShowInput(true)
@@ -302,9 +289,9 @@ return (
 						<VscNewFolder 
 							size={22}  
 							className='cursor-pointer'
-							style={{color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}}
-							onMouseEnter={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.hover : lightTheme.fileExplorer.afterOpen.icons.hover}
-							onMouseLeave={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}
+							style={{color : currentStyle('fileExplorer.afterOpen.icons.color')}}
+							onMouseEnter={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.hover')}
+							onMouseLeave={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.color')}
 							onClick={() => {
 									setInput({...input, type : 'Directory'})
 									setShowInput(true)
@@ -318,9 +305,9 @@ return (
 									value={showInput ? input.val : renameInput}
 									className="px-2 py-1 border rounded-sm w-[97%] outline-none"
 									style={{
-										borderColor : theme === "dark" ? darkTheme.fileExplorer.afterOpen.input.border : lightTheme.fileExplorer.afterOpen.input.border,
-										backgroundColor : theme === "dark" ? darkTheme.fileExplorer.afterOpen.input.bg : lightTheme.fileExplorer.afterOpen.input.bg,
-										color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.input.text : lightTheme.fileExplorer.afterOpen.input.text
+										borderColor : currentStyle('fileExplorer.afterOpen.input.border'),
+										backgroundColor : currentStyle('fileExplorer.afterOpen.input.bg'),
+										color : currentStyle('fileExplorer.afterOpen.input.text')
 									}}
 									onChange={(e) => {
 										if(showInput) setInput({...input, val: e.target.value})
@@ -337,9 +324,9 @@ return (
 								<BiSend
 									size={22}
 									className='cursor-pointer'
-									style={{color : theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}}
-									onMouseEnter={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.hover : lightTheme.fileExplorer.afterOpen.icons.hover}
-									onMouseLeave={e => e.currentTarget.style.color = theme === "dark" ? darkTheme.fileExplorer.afterOpen.icons.color : lightTheme.fileExplorer.afterOpen.icons.color}
+									style={{color : currentStyle('fileExplorer.afterOpen.icons.color')}}
+									onMouseEnter={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.hover')}
+									onMouseLeave={e => e.currentTarget.style.color = currentStyle('fileExplorer.afterOpen.icons.color')}
 									onClick={() => {
 										if(showInput)
 											handleCreation()
