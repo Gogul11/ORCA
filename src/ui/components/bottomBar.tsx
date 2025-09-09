@@ -5,8 +5,7 @@ import { FaDownload } from "react-icons/fa";
 import { TfiTimer } from "react-icons/tfi";
 import { sideBarStore } from "../stores/sideBarStore";
 import { LuListTodo } from "react-icons/lu";
-import { colorThemeStore } from "../stores/ThemeStore";
-import { darkTheme, lightTheme } from "../utils/colors";
+import { currentStyle } from "../utils/styleChooser";
 
 type Tab = 'files' | 'open' | 'chat' | 'connect' | 'download' | 'connectClient' | 'connectHost' | 'timer' | 'todo' | ' ';
 
@@ -15,7 +14,6 @@ const BottomBar = () => {
   const setActiveTab = sideBarStore((state) => state.setAcitveTab);
   const isOpen = sideBarStore((state) => state.isOpen);
   const toggle = sideBarStore((state) => state.toggle);
-  const theme = colorThemeStore((state) => state.theme)
   
   const handleTabClick = (tab: Tab) => {
     setActiveTab(tab);
@@ -29,15 +27,15 @@ const BottomBar = () => {
   return (
     <div 
       className="w-full flex justify-evenly h-full"
-      style={{backgroundColor : theme === "dark" ?  darkTheme.bottomTab.bg : lightTheme.bottomTab.bg}}
+      style={{backgroundColor : currentStyle('bottomTab.bg')}}
     >
       <button className="cursor-pointer" onClick={() => handleTabClick("files")}>
         <BsCollection 
           size={24} 
           style={{
             color : activeTab === "files" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }}
         />
       </button>
@@ -47,8 +45,8 @@ const BottomBar = () => {
           size={24} 
           style={{
             color : activeTab === "connect" || activeTab === "connectClient" || activeTab === "connectHost" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) :
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }} />
       </button>
 
@@ -57,8 +55,8 @@ const BottomBar = () => {
           size={24} 
           style={{
             color : activeTab === "chat" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) :
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }} />
       </button>
 
@@ -67,8 +65,8 @@ const BottomBar = () => {
           size={24} 
           style={{
             color : activeTab === "download" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }} />
       </button>
 
@@ -77,8 +75,8 @@ const BottomBar = () => {
           size={24} 
           style={{
             color : activeTab === "timer" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }} />
       </button>
 
@@ -87,8 +85,8 @@ const BottomBar = () => {
           size={24} 
           style={{
             color : activeTab === "todo" ? 
-                    (theme === "dark" ? darkTheme.bottomTab.iconActive : lightTheme.bottomTab.iconActive) : 
-                    (theme === "dark" ? darkTheme.bottomTab.iconNotActive : lightTheme.bottomTab.iconNotActive)
+                    (currentStyle('bottomTab.iconActive')) : 
+                    (currentStyle('bottomTab.iconNotActive'))
                   }} />
       </button>
     </div>

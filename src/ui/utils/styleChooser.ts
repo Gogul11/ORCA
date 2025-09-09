@@ -1,5 +1,21 @@
 import { colorThemeStore } from "../stores/ThemeStore"
+import { darkTheme, lightTheme } from "./colors"
 
-export const currentStyle = (s1 : string, s2 : string) => {
-    return colorThemeStore.getState().theme === "dark" ? s1 : s2
+const getStyle = (obj : any, path : string) : string => {
+    return path.split('.').reduce((acc, key) => acc?.[key], obj)
+}
+
+export const currentStyle = (s : string) => {
+
+    let style : string = '';
+    switch(colorThemeStore.getState().theme){
+        case "dark":
+            return getStyle(darkTheme, s)
+        case "light":
+            return getStyle(lightTheme, s)
+        default:
+            return getStyle(darkTheme, s)
+    }
+
+    return style;
 }

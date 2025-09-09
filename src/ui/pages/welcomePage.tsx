@@ -9,12 +9,10 @@ import { dirStore } from '../stores/directoryStore';
 import { selectedPathStore } from '../stores/selectedPathStore';
 import { sideBarStore } from '../stores/sideBarStore';
 import { GiDolphin } from 'react-icons/gi';
-import { darkTheme, lightTheme } from '../utils/colors';
 import { currentStyle } from '../utils/styleChooser';
 
-interface WelcomeScreenProps {}
-
-const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
+const WelcomeScreen: React.FC = () => {
+  
   const quickActions = [
     { 
       icon: FiFolder, 
@@ -52,7 +50,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
   return (
     <div 
       className="min-h-screen flex"
-      style={{backgroundColor : currentStyle(darkTheme.welcome.bg, lightTheme.welcome.bg)}}
+      style={{backgroundColor : currentStyle('welcome.bg')}}
     >
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-8">
@@ -60,14 +58,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
         <div className="mb-12">
           <div 
             className="text-8xl font-bold mb-4 tracking-wider flex gap-4"
-            style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
+            style={{color : currentStyle('welcome.link')}}
           >
             ORCA
             <GiDolphin className='animate-pulse'/>
           </div>
           <div 
             className="text-center text-lg"
-            style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
+            style={{color : currentStyle('welcome.pText2')}}
           >
             Coding made powerful
           </div>
@@ -79,7 +77,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
           <div className="">
             <h2 
               className="text-xl font-semibold mb-6 text-center"
-              style={{color : currentStyle(darkTheme.welcome.pText1, lightTheme.welcome.pText1)}}
+              style={{color : currentStyle('welcome.pText1')}}
             >Start</h2>
             <div className="space-y-2">
               {quickActions.map((action, index) => (
@@ -91,10 +89,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
                   <div className="flex items-center space-x-3 hover:cursor-pointer">
                     <action.icon 
                       className="w-4 h-4" 
-                      style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
+                      style={{color : currentStyle('darkTheme.welcome.pText2')}}
                     />
                     <span
-                      style={{color : currentStyle(darkTheme.welcome.pText2, lightTheme.welcome.pText2)}}
+                      style={{color : currentStyle('welcome.pText2')}}
                     >
                       {action.label}
                     </span>
@@ -109,33 +107,33 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
         <div className="mt-16 flex flex-wrap justify-center gap-6 text-sm">
           <button 
               className="transition-colors hover:cursor-pointer"
-              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
-              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
-              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
+              style={{color : currentStyle('welcome.link')}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle('welcome.bLink')}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle('welcome.link')}
           >
             Show release notes
           </button>
           <button   
               className="transition-colors hover:cursor-pointer"
-              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
-              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
-              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
+              style={{color : currentStyle('welcome.link')}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle('welcome.bLink')}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle('welcome.link')}
           >
             Privacy statement
           </button>
           <button
               className="transition-colors hover:cursor-pointer"
-              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
-              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
-              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
+              style={{color : currentStyle('welcome.link')}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle('welcome.bLink')}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle('welcome.link')}
           >
             License
           </button>
            <button
               className="transition-colors hover:cursor-pointer"
-              style={{color : currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}}
-              onMouseEnter={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.bLink, lightTheme.welcome.bLink)}
-              onMouseLeave={e => e.currentTarget.style.color = currentStyle(darkTheme.welcome.link, lightTheme.welcome.link)}
+              style={{color : currentStyle('welcome.link')}}
+              onMouseEnter={e => e.currentTarget.style.color = currentStyle('welcome.bLink')}
+              onMouseLeave={e => e.currentTarget.style.color = currentStyle('welcome.link')}
            >
             About Us
           </button>
