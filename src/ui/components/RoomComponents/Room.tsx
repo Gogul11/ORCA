@@ -2,23 +2,19 @@ import { useState } from "react";
 import JoinRoomForm from "./joinRoom";
 import HostRoomForm from "./hostRoom";
 import { UserTypeStore } from "../../stores/userTypeStore";
-import { colorThemeStore } from "../../stores/ThemeStore";
-import { darkTheme, lightTheme } from "../../utils/colors";
+import { currentStyle } from "../../utils/styleChooser";
 
 const Room: React.FC<{ tab: "client" | "host" }> = ({ tab }) => {
   const [activeTab, setActiveTab] = useState<"client" | "host">(tab);
-  const theme = colorThemeStore((state) => state.theme)
 
   return (
-    <div className="h-full w-full mx-auto flex flex-col justify-center px-4">
+    <div className="h-full w-full mx-auto flex flex-col py-10 px-4 ">
       <div className="flex justify-around mb-6">
         <button
           className="px-4 py-2 rounded-sm hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
-            color : theme === "dark" ? darkTheme.room.text : lightTheme.room.text,
-            backgroundColor : theme === "dark" ?
-                              (activeTab === "client" ? darkTheme.room.buttonActive : darkTheme.room.buttonNotActive) :
-                              (activeTab === "client" ? lightTheme.room.buttonActive : lightTheme.room.buttonNotActive) 
+            color : currentStyle('room.text'),
+            backgroundColor : activeTab === "client" ? currentStyle('room.buttonActive') : currentStyle('room.buttonNotActive')
           }}
           onClick={() => setActiveTab("client")}
           disabled={UserTypeStore.getState().user === "host"}
@@ -29,10 +25,8 @@ const Room: React.FC<{ tab: "client" | "host" }> = ({ tab }) => {
         <button
           className="px-4 py-2 rounded-sm hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
-            color : theme === "dark" ? darkTheme.room.text : lightTheme.room.text,
-            backgroundColor : theme === "dark" ?
-                              (activeTab === "host" ? darkTheme.room.buttonActive : darkTheme.room.buttonNotActive) :
-                              (activeTab === "host" ? lightTheme.room.buttonActive : lightTheme.room.buttonNotActive) 
+            color : currentStyle('room.text'),
+            backgroundColor : activeTab === "host" ? currentStyle('room.buttonActive') : currentStyle('room.buttonNotActive') 
           }}
           onClick={() => setActiveTab("host")}
           disabled={UserTypeStore.getState().user === "client"}

@@ -62,9 +62,30 @@ const darkTheme = {
     joinRoom : {
         label : '#ffffff',
         text : '#cccccc',
+        border : '#007acc',
+        inputBg : '#ffffff1a',
+        error : '#ff4d4f',
+        errorBorder : '#ff4d4f',
+        endSession : '#ff4d4f',
+        button : {
+                text : '#ffffff',
+                bg : '#007acc80'
+        }
+    },
+    hostRoom : {
+        label : '#ffffff',
+        text : '#cccccc',
+        border : '#007acc',
+        inputBg : '#ffffff1a',
+        error : '#ff4d4f',
+        errorBorder : '#ff4d4f',
+        errorButton: '#ff4d4f',
+        button : {
+                text : '#ffffff',
+                bg : '#007acc80'
+        }    
     }
 }
-
 const lightTheme = {
     welcome : {
         link : '#007acc',
