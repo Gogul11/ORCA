@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { EditorMapsStore } from '../stores/editorsMap';
 import Loader from './loader';
 import { colorThemeStore } from '../stores/ThemeStore';
+import { getMonacoLanguageFromExtension } from '../utils/programingLanguageMapUtils';
 
 type propsType = {
   value : string,
@@ -34,7 +35,7 @@ const LabXEditor : React.FC<propsType> = ({value, ext, path, read}) => {
       <Editor
         height="100%"
         width="100%"
-        language={ext}
+        language={getMonacoLanguageFromExtension(ext)}
         value={value}
         theme={theme === "dark" ? "vs-dark" : "vs-light"}
         options={{

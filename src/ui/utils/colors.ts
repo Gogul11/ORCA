@@ -84,6 +84,15 @@ const darkTheme = {
                 text : '#ffffff',
                 bg : '#007acc80'
         }    
+    },
+    chat : {
+        text : '#ffffff',
+        Chatbg1 : '#007acc80',
+        Chatbg2 : '#ffffff1a',
+        text2 : '#cccccc',
+        border : '#ffffff1a',
+        inputBg : '#ffffff1a',
+        sendBg : '#007acc80'
     }
 }
 const lightTheme = {
