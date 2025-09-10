@@ -211,7 +211,7 @@ const HostRoomForm: React.FC = () => {
 				</div>
 
 				{adminDir && (
-					<p className="text-green-500 text-sm text-center">
+					<p className="font-semibold text-sm text-center">
 						Directory: <br /> {adminDir}
 					</p>
 				)}

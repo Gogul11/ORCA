@@ -126,7 +126,7 @@ const lightTheme = {
         crossIcon : '#000000',
     },
     sideBar : {
-        bg : '#fafafa36'
+        bg : '#0000001a'
     },
     fileExplorer : {
         bg : '#fafafae6',
@@ -165,6 +165,51 @@ const lightTheme = {
         buttonActive : '#0098ff',
         buttonNotActive : '#007acc',
         text : '#cccccc'
+    },
+    joinRoom : {
+        label : '#000000',
+        text : '#000000e6',
+        border : '#0098ff',
+        inputBg : '#00000033',
+        error : '#ff4d4f',
+        errorBorder : '#ff4d4f',
+        endSession : '#ff4d4f',
+        button : {
+            text : '#ffffff',
+            bg : '#007acccc'
+        }
+    },
+    hostRoom : {
+        label : '#000000',
+        text : '#000000e6',
+        border : '#0098ff',
+        inputBg : '#00000033',
+        error : '#ff4d4f',
+        errorBorder : '#ff4d4f',
+        errorButton: '#ff4d4f',
+        button : {
+            text : '#ffffff',
+            bg : '#007acccc'
+        }
+    },
+    chat : {
+        text : '#000000',
+        Chatbg1 : '#007acc80',
+        Chatbg2 : '#0000001a',
+        text2 : '#000000e6',
+        border : '#000000e6',
+        inputBg : '#00000033',
+        sendBg : '#0098ff80'
+    },
+    download : {
+        text : '#000000',
+        button : {
+            text : '#000000',
+            bg : '#0098ff80',
+            bg2 : '#0098ffe6'
+        },
+        border : '#000000e6',
+        text2 : '#000000e6'
     }
 }
 

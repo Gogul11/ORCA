@@ -6,8 +6,6 @@ import { selectedPathStore } from '../stores/selectedPathStore';
 import { dirStore } from '../stores/directoryStore';
 import { sideBarStore } from '../stores/sideBarStore';
 import  Download from '../components/Download'
-import Timer from "../components/Timer";
-import TodoList from "../components/Todo";
 import { colorThemeStore } from "../stores/ThemeStore";
 import { darkTheme, lightTheme } from "../utils/colors";
 
@@ -45,10 +43,6 @@ const SideBar = () => {
         return <Room tab="host"/>
       case 'download':
         return <Download/>
-      case 'todo':
-        return <TodoList/>
-      case 'timer':
-          return <Timer/>
       default:
         return null;
     }
