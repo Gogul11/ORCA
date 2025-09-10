@@ -4,7 +4,7 @@ const darkTheme = {
         bLink : '#0098ff',
         pText1 : '#ffffff',
         pText2 : '#cccccc',
-        bg : '#000000'
+        bg : '#80808033'
     },
     bottomTab : {
         bg : '#007acccc',
@@ -19,7 +19,8 @@ const darkTheme = {
         crossIcon : '#ffffff',
     },
     sideBar : {
-        bg : '#ffffff1a'
+        bg : '#ffffff1a',
+        border : '#007acc'
     },
     fileExplorer : {
         bg : '#ffffff1a',
@@ -111,7 +112,7 @@ const lightTheme = {
         bLink : '#0098ff',
         pText1 : '#000000',
         pText2 : '#1f2937',
-        bg : '#fafafa'
+        bg : '#ffffff1a'
     },
     bottomTab : {
         bg : '#007acccc',
@@ -126,7 +127,8 @@ const lightTheme = {
         crossIcon : '#000000',
     },
     sideBar : {
-        bg : '#0000001a'
+        bg : '#ffffff80',
+        border : '#007acc'
     },
     fileExplorer : {
         bg : '#fafafae6',

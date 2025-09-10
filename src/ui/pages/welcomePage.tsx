@@ -89,7 +89,7 @@ const WelcomeScreen: React.FC = () => {
                   <div className="flex items-center space-x-3 hover:cursor-pointer">
                     <action.icon 
                       className="w-4 h-4" 
-                      style={{color : currentStyle('darkTheme.welcome.pText2')}}
+                      style={{color : currentStyle('welcome.pText2')}}
                     />
                     <span
                       style={{color : currentStyle('welcome.pText2')}}

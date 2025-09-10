@@ -8,6 +8,7 @@ import { sideBarStore } from '../stores/sideBarStore';
 import  Download from '../components/Download'
 import { colorThemeStore } from "../stores/ThemeStore";
 import { darkTheme, lightTheme } from "../utils/colors";
+import {currentStyle} from "../utils/styleChooser.ts";
 
 const SideBar = () => {
 
@@ -49,7 +50,10 @@ const SideBar = () => {
   };
 
   return (
-    <div className="w-full h-full shadow-lg flex flex-col items-center relative">
+    <div
+        className="w-full h-full shadow-lg flex flex-col items-center relative border-l-2"
+        style={{borderColor : currentStyle('sideBar.border')}}
+    >
 
       
       <button
