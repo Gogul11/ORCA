@@ -141,6 +141,10 @@ const darkTheme = {
             text1 : '#007acc',
             text2 : '#0098ff',
             text3 : '#ffffff'
+        },
+        editor : {
+            text : '#007acc',
+            error : '#ff4d4f',
         }
     }
 }

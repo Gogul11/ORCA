@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './SideBar.css';
-import { ipStore } from '../../../stores/ipStore';
 import { LuRefreshCcw } from "react-icons/lu";
+// import './SideBar.css';
+//stores
+import { ipStore } from '../../../stores/host/ipStore.ts';
+//utils
 import { getSocket } from '../../../utils/Socket';
 import {currentStyle} from "../../../utils/styleChooser.ts";
 

@@ -194,6 +194,7 @@ useEffect(() => {
 				toogle={() => openFolder(node.path, setTree, tree)}
 				select={(p: typeof selectedPath) => setSelectedPath(p)}
 				path={node.path}
+				host={false}
 			/>
 			{node.isDir && node.children && node.isOpen && renderTree(node.children, level + 1)}
 		</div>

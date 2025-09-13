@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { ipStore } from "../../stores/ipStore";
-import { roomIdStore } from "../../stores/roomIdStore";
-import { roomNameStore } from "../../stores/roomNameStore";
-import { adminStore } from "../../stores/hostDirStore";
+//stores
+import { ipStore } from "../../stores/host/ipStore";
+import { roomIdStore } from "../../stores/host/roomIdStore";
+import { roomNameStore } from "../../stores/host/roomNameStore";
+import { adminStore } from "../../stores/host/hostDirStore";
+//utils
 import { currentStyle } from "../../utils/styleChooser";
 
 const HostRoomForm: React.FC = () => {
@@ -12,7 +14,7 @@ const HostRoomForm: React.FC = () => {
 	const [roomId, setRoomId] = useState("");
 	const [port, setPort] = useState("");
 	const [ip, setIp] = useState("");
-	const [staffId, setStaffId] = useState("");
+	// const [staffId, setStaffId] = useState("");
 	const [errors, setErrors] = useState<{ [key: string]: string }>({});
 	const [isHosted, setIsHosted] = useState(false);
 	const navigate = useNavigate();
@@ -26,7 +28,7 @@ const HostRoomForm: React.FC = () => {
 		if (!roomId.trim()) newErrors.roomId = "Room ID is required.";
 		if (!port.trim() || !/^\d{4,5}$/.test(port))
 			newErrors.port = "Port must be 4-5 digits.";
-		if (!staffId.trim()) newErrors.staffId = "Staff ID is required.";
+		// if (!staffId.trim()) newErrors.staffId = "Staff ID is required.";
 		if (!ip.trim() || !/^(\d{1,3}\.){3}\d{1,3}$/.test(ip))
 			newErrors.ip = "Valid IP address is required.";
 		if(adminDir.trim() === '') newErrors.dir = "Please Select Directory!"
@@ -54,7 +56,7 @@ const HostRoomForm: React.FC = () => {
 
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-5">
-			<div>
+			{/* <div>
 				<label 
 					className="block mb-1 text-sm font-medium"
 					style = {{color : currentStyle('hostRoom.label')}}
@@ -79,7 +81,7 @@ const HostRoomForm: React.FC = () => {
 						style={{color : currentStyle('hostRoom.error')}}
 					>{errors.staffId}</span>
 				)}
-			</div>
+			</div> */}
 
 			<div>
 				<label 

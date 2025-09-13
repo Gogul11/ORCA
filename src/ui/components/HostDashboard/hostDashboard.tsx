@@ -1,15 +1,19 @@
 import { useState } from 'react';
-import './HostDashboard.css';
+import axios from 'axios';
+import {GiDolphin} from "react-icons/gi";
+// import './HostDashboard.css';
+//types
+import type { Client } from '../../types/types';
+//Components
 import Sidebar from './Sidebar/sideBar';
 import ClientFolderView from './FolderView/clientFolder';
-import type { Client } from '../../types/types';
 import Editor from './Editor/EditorHost';
-import { roomNameStore } from '../../stores/roomNameStore';
-import { roomIdStore } from '../../stores/roomIdStore';
-import axios from 'axios';
-import { ipStore } from '../../stores/ipStore';
+//utils
 import {currentStyle} from "../../utils/styleChooser.ts";
-import {GiDolphin} from "react-icons/gi";
+//Stores
+import { roomNameStore } from '../../stores/host/roomNameStore.ts';
+import { ipStore } from '../../stores/host/ipStore.ts';
+import { roomIdStore } from '../../stores/host/roomIdStore.ts';
 
 const HostDashboard: React.FC = () => {
 

@@ -6,13 +6,15 @@ import { ModifiedFileStore } from "../../stores/modifiedFileStore";
 import { welcomePageStore } from "../../stores/welcomePageStore";
 import { currentStyle } from "../../utils/styleChooser";
 import { EditorMapsStore } from "../../stores/editorsMap";
+import { hostSelectedPathStore } from "../../stores/host/currentPathStore";
 
 type FileNode = {
     name: string;
     isDir: boolean;
     toogle : () => void;
-    select : (path : {val : string, isDir : boolean}) => void,
-    path : string
+    select ?: (path : {val : string, isDir : boolean}) => void,
+    path : string,
+    host : boolean
 };
 
 const Content = (props : FileNode) => {
@@ -23,15 +25,15 @@ const Content = (props : FileNode) => {
     return (
         <div className='cursor-pointer w-full' 
             onClick={() => {
-                    props.select({val : props.path, isDir : props.isDir})
-                    !props.isDir && selectedPath(props.path)
-                    welcomePageStore.getState().setOpen(false)
-                    activeStore(props.path)
-                    !props.isDir && ModifiedFileStore.getState().setFiles(props.path)
+                    props.select && props.select({val : props.path, isDir : props.isDir})
+                    !props.isDir && (props.host ? hostSelectedPathStore.getState().setPath(props.path) : selectedPath(props.path))
+                    !props.host && welcomePageStore.getState().setOpen(false)
+                    !props.host && activeStore(props.path)
+                    !props.isDir && !props.host && ModifiedFileStore.getState().setFiles(props.path)
                 }}
             onContextMenu={(e) => {
                 if(e.button === 2)
-                    props.select({val : props.path, isDir : props.isDir})
+                    props.select && props.select({val : props.path, isDir : props.isDir})
             }}
             style={{
 				backgroundColor : EditorMapsStore.getState().openedEditors[props.path]?.isOpen ? currentStyle('fileExplorer.afterOpen.files.active') : '',

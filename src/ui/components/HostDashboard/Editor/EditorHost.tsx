@@ -1,31 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import LabXEditor from '../../../components/editor';
-import { currentPathStore } from '../../../stores/currentPathStore';
 import { GiDolphin } from 'react-icons/gi';
+import { FaMinus } from "react-icons/fa";
+//Components
+import LabXEditor from '../../../components/editor';
+//Stores
+import { hostSelectedPathStore } from '../../../stores/host/currentPathStore';
+import { currentStyle } from '../../../utils/styleChooser';
 
 const EditorHost: React.FC = () => {
-  const selectedPath = currentPathStore((state) => state.path);
-  const [fileName, setFilename] = useState('')
-
-  const [fileData, setFileData] = useState<{ data: string; ext: string } | null>(null);
+  
+  const selectedPath = hostSelectedPathStore((state) => state.path);
+  const [fileData, setFileData] = useState<{ data: string; ext: string; name : string } | null>(null);
+  const [openEditor, setOpenEditor] = useState<boolean>(false)
 
   useEffect(() => {
     if (!selectedPath) return;
 
     (async () => {
       const res: { data: string; ext: string; fileName: string } = await window.electronApi.openFile(selectedPath);
-      setFileData({ data: res.data, ext: res.ext });
-      setFilename(res.fileName)
+      setFileData({ data: res.data, ext: res.ext, name : res.fileName });
+      setOpenEditor(true)
     })();
   }, [selectedPath]);
 
   return (
     <div className="w-full h-full">
-      <div className='h-[3%] text-white'>
-        {fileName}
+      <div className='h-[3%] flex items-center justify-center gap-4'>
+        <p 
+          style={{color : currentStyle('hostDashboard.editor.text')}}
+          className='font-bold'
+        >
+          {openEditor && fileData?.name}
+        </p>
+        {openEditor && 
+          <p
+            className='font-bold cursor-pointer text-xl'
+            style={{color : currentStyle('hostDashboard.editor.error')}}
+            onClick={() => setOpenEditor(false)}
+          >
+            <FaMinus/>
+          </p>
+        }
       </div>
       <div className='h-[97%]'>
-        {selectedPath && fileData ? (
+        {selectedPath && fileData && openEditor ? (
           <LabXEditor
             value={fileData.data}
             ext={fileData.ext}

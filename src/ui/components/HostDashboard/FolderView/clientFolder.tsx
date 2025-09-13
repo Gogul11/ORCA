@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import type { Client } from '../../../types/types';
+//Components
 import Content from '../../fileExplorer/content';
+//Types
+import type { Client } from '../../../types/types';
+//Utils
 import { fetchFolder, openFolder } from '../../../utils/flileExplorer';
-import { ipStore } from '../../../stores/ipStore';
 import { getSocket } from '../../../utils/Socket';
 import { currentStyle } from '../../../utils/styleChooser';
+//Stores
+import { ipStore } from '../../../stores/host/ipStore';
 
 interface Props {
   client?: Client;
@@ -20,7 +24,6 @@ type FileNode = {
 
 const ClientFolderView: React.FC<Props> = ({ client }) => {
   const [tree, setTree] = useState<FileNode[]>([]);
-  const [selectedPath, setSelectedPath] = useState({ val: '', isDir: false });
   const [fetch, setFetch] = useState<boolean>(false);
   const [folderPath, setFolderPath] = useState<string>('');
   const [notSubmited, setNotSubmited] = useState<boolean>(false)
@@ -70,7 +73,6 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
           fetchFolder(parentDir)
             .then((data) => {
               setTree(data);
-              setSelectedPath({ val: parentDir, isDir: true });
               setFetch(false);
             })
             .catch((_e: any) => {
@@ -99,8 +101,8 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
           isDir={node.isDir}
           name={node.name}
           toogle={() => openFolder(node.path, setTree, tree)}
-          select={(p: typeof selectedPath) => setSelectedPath(p)}
           path={node.path}
+          host={true}
         />
         {node.isDir && node.children && node.isOpen && renderTree(node.children, level + 1)}
       </div>
