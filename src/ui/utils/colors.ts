@@ -104,6 +104,44 @@ const darkTheme = {
         },
         border : '#ffffff1a',
         text2 : '#cccccc'
+    },
+    hostDashboard : {
+        navBar : {
+            text : '#ffffff',
+            text2 : '#cccccc',
+            bg : '#007acccc',
+            inputBg : '#00000033',
+            button : {
+                text : '#ffffff',
+                bg : '#000000e6'
+            }
+        },
+        sideBar : {
+            bg : '#ffffff1a',
+            text : '#cccccc',
+            error : '#ff4d4f',
+            text2 : '#ffffff',
+            text3 : '#007acc',
+            input : {
+                border : '#007acc',
+                bg : '#ffffff33',
+                text : '#cccccc'
+            },
+            status : {
+                active : '#007acc',
+                notActive : '#cccccc'
+            },
+            border : '#007acc',
+            disconnected : '#ff4d4f33',
+            studBg : '#00000033'
+        },
+        folderView : {
+            bg : '#ffffff1a',
+            border : '#007acc',
+            text1 : '#007acc',
+            text2 : '#0098ff',
+            text3 : '#ffffff'
+        }
     }
 }
 const lightTheme = {

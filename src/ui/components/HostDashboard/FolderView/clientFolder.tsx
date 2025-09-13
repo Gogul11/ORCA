@@ -4,6 +4,7 @@ import Content from '../../fileExplorer/content';
 import { fetchFolder, openFolder } from '../../../utils/flileExplorer';
 import { ipStore } from '../../../stores/ipStore';
 import { getSocket } from '../../../utils/Socket';
+import { currentStyle } from '../../../utils/styleChooser';
 
 interface Props {
   client?: Client;
@@ -87,14 +88,14 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
     nodes.map((node) => (
       <div
         key={node.path}
-        style={{ paddingLeft: level + 16 }}
-        className={`
-          group transition-all duration-150 rounded-sm
-          ${selectedPath.val === node.path ? 'bg-[#3e4451] text-[#abb2bf]' : ''}
-          ${node.isDir ? 'text-[#61afef]' : 'text-[#e5c07b]'}
-        `}
+        style={{ 
+          paddingLeft: level + 5,
+          color : currentStyle('fileExplorer.afterOpen.files.item.text')
+        }}
+        
+        className="group transition-all duration-150"
       >
-        <Content
+        <Content 
           isDir={node.isDir}
           name={node.name}
           toogle={() => openFolder(node.path, setTree, tree)}
@@ -106,22 +107,52 @@ const ClientFolderView: React.FC<Props> = ({ client }) => {
     ));
 
   if (!client) {
-    return <div className="p-5 bg-[#21252b] text-[#abb2bf]">Select a client to view their folder.</div>;
+    return <div 
+            className="p-5 h-full text-center"
+            style={{
+              backgroundColor : currentStyle('hostDashboard.folderView.bg'),
+              color : currentStyle('hostDashboard.folderView.text3')
+            }}
+          >Select a client to view their folder.</div>;
   }
 
   if (fetch) {
-    return <div className="p-5 bg-[#21252b] textauto-[#abb2bf]">Fetching folder</div>;
+    return <div className="p-5 h-full text-center"
+                style={{
+                  backgroundColor : currentStyle('hostDashboard.folderView.bg'),
+                  color : currentStyle('hostDashboard.folderView.text3')
+                }}
+            >Fetching folder</div>;
   }
 
   return (
-    <div className="flex flex-col p-2 flex-1 bg-[#21252b] text-[#abb2bf] border-r border-[#3e4451] h-full ">
-      <div className='border-b-2 border-[#3e4451] h-[6%] mx-auto'>
-        <span className="text-[#61afef] text-2xl font-bold mr-2">{client.name}</span>
-        <span className="text-[#e5c07b] text-xl font-bold font-mono">{client.regNo}</span>
+    <div 
+      className="flex flex-col p-2 flex-1 h-full border-r"
+      style={{
+          backgroundColor : currentStyle('hostDashboard.folderView.bg'),
+          borderColor : currentStyle('hostDashboard.folderView.border')
+        }}
+    >
+      <div
+       className='border-b-2 h-[6%] mx-auto'
+        style={{borderColor : currentStyle('hostDashboard.folderView.border')}}
+      >
+        <span 
+          className="text-2xl mr-2 text-center"
+          style={{color : currentStyle('hostDashboard.folderView.text1')}}
+        >{client.name}</span>
+        <span 
+          className="text-2xl"
+          style={{color : currentStyle('hostDashboard.folderView.text2')}}
+        >{client.regNo}</span>
       </div>
 
-      <div className="overflow-auto h-[94%] border-b-2 border-[#3e4451]">
-        {notSubmited && <div className="p-5 bg-[#21252b] text-[#abb2bf]">Student not submited</div>}
+      <div className="overflow-auto h-[94%] border-b-2 border-red">
+        {notSubmited && 
+          <div 
+            className="p-5 text-center"
+            style={{color : currentStyle('hostDashboard.folderView.text3')}}
+          >Student not submited</div>}
         {folderPath === '' ? null : renderTree(tree)}
       </div>
     </div>
