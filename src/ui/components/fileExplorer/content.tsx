@@ -3,7 +3,7 @@ import { FaFolderClosed } from "react-icons/fa6";
 import { currentPathStore } from "../../stores/currentPathStore";
 import { ActivePathStore } from "../../stores/activePathStore";
 import { ModifiedFileStore } from "../../stores/modifiedFileStore";
-import { welcomePageStore } from "../../stores/welcomePageStore";
+import { pageStore } from "../../stores/PageStore";
 import { currentStyle } from "../../utils/styleChooser";
 import { EditorMapsStore } from "../../stores/editorsMap";
 import { hostSelectedPathStore } from "../../stores/host/currentPathStore";
@@ -27,7 +27,7 @@ const Content = (props : FileNode) => {
             onClick={() => {
                     props.select && props.select({val : props.path, isDir : props.isDir})
                     !props.isDir && (props.host ? hostSelectedPathStore.getState().setPath(props.path) : selectedPath(props.path))
-                    !props.host && welcomePageStore.getState().setOpen(false)
+                    !props.host && pageStore.getState().setOpen(false)
                     !props.host && activeStore(props.path)
                     !props.isDir && !props.host && ModifiedFileStore.getState().setFiles(props.path)
                 }}

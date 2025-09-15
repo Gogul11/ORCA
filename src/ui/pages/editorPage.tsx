@@ -10,6 +10,7 @@ import { ModifiedFileStore } from '../stores/modifiedFileStore';
 import SideBar from './sideBar';
 import { useSocket } from '../utils/soc';
 import BottomBar from '../components/bottomBar';
+import { pageStore } from '../stores/PageStore';
 
 const EditorPage = () => {
 
@@ -91,11 +92,11 @@ const EditorPage = () => {
     return (
         <div className="flex h-screen w-screen">
 
-                {Object.entries(openedEditors).length === 0 ? 
+                {pageStore.getState().isOpen ? 
                         <div className={`h-[96%] ${isSideBarOpen ? 'w-[80%]' : 'w-full'}`}>
-                            <WelcomeScreen/>
+                            {pageStore.getState().page === "welcome"  &&  <WelcomeScreen/>}
                         </div>
-                    : (
+                    : Object.entries(openedEditors).length === 0 && (
                         Object.entries(openedEditors).map(([path, vals]) => (
                             vals.isOpen && 
                             <div className={`h-[96%] ${isSideBarOpen ? 'w-[80%]' : 'w-full'}`}>
