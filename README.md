@@ -7,7 +7,7 @@ Built using **Electron.js, Node.js, React, and TypeScript**.
 ---
 
 ## Developers
-- **Gogul** — Backend Developer ([GitHub](https://github.com/your-username))
+- **Gogul** — Backend Developer ([GitHub](https://github.com/Gogul11))
 - **Mohan Vishnu Kumar** — Frontend Developer ([GitHub](https://github.com/surrealsun))
 - **Sankara Krishnan** — Frontend Developer ([GitHub](https://github.com/SankaraKrishnan12))
 - **Gunasekhar** - Frontend Developer ([Github](https://github.com/GUNASEKHAR5))
@@ -101,3 +101,4 @@ Built using **Electron.js, Node.js, React, and TypeScript**.
 - Plagiarism detection
 - Encryption for submissions
   
+
